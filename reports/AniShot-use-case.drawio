@@ -1,0 +1,416 @@
+<mxfile host="app.diagrams.net" agent="AniShot lab1" pages="3">
+  <diagram id="usecase" name="Use Case">
+    <mxGraphModel dx="2054" dy="2237" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=20;fontStyle=1;fontColor=#1F2937;" value="Диаграмма вариантов использования — AniShot" vertex="1">
+          <mxGeometry height="36" width="900" x="320" y="4" as="geometry" />
+        </mxCell>
+        <mxCell id="system" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;startSize=36;horizontal=1;container=0;collapsible=0;rounded=0;shadow=0;fillColor=none;strokeColor=#111827;strokeWidth=2;fontSize=16;fontColor=#111827;whiteSpace=wrap;" value="AniShot" vertex="1">
+          <mxGeometry height="980" width="1020" x="270" y="-40" as="geometry" />
+        </mxCell>
+        <mxCell id="pkg-account" parent="system" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#111827;strokeWidth=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;fontSize=12;fontColor=#111827;fontStyle=0;" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Аккаунт&lt;/font&gt;" vertex="1">
+          <mxGeometry height="185" width="1000" x="8" y="32.5" as="geometry" />
+        </mxCell>
+        <mxCell id="pkg-search" parent="system" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#111827;strokeWidth=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=4;fontSize=12;fontColor=#111827;fontStyle=0;" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Поиск&lt;/font&gt;" vertex="1">
+          <mxGeometry height="460" width="1000" x="8" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="pkg-list" parent="system" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#111827;strokeWidth=1;verticalAlign=top;align=left;spacingLeft=8;spacingTop=2;fontSize=12;fontColor=#111827;fontStyle=0;" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;Мой список&lt;/font&gt;" vertex="1">
+          <mxGeometry height="240" width="1000" x="8" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-login" parent="system" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Войти&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="465" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-mask" parent="system" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Построить маску&lt;br&gt;кадра&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="210" x="600" y="230" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-profile" parent="system" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Просмотреть&lt;br&gt;профиль&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="170" x="270" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-register" parent="system" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Зарегистрироваться&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="200" x="700" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-logout" parent="system" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Выйти&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="150" x="20" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-logout" edge="1" parent="system" source="uc-logout" style="endArrow=open;endSize=10;dashed=1;html=1;rounded=0;strokeWidth=1.2;strokeColor=#111827;fontSize=10;fontColor=#111827;;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="uc-profile" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;«extend»&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-preview" parent="system" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Показать превью&lt;br&gt;кадра и клипа&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="220" x="710" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-details" parent="system" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Открыть карточку&lt;br&gt;аниме&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="210" x="280" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-search" parent="system" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Найти аниме&lt;br&gt;по кадру&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="210" x="425" y="330" as="geometry" />
+        </mxCell>
+        <mxCell id="inc-mask" edge="1" parent="system" source="uc-search" style="endArrow=open;endSize=10;dashed=1;html=1;rounded=0;strokeWidth=1.2;strokeColor=#111827;fontSize=10;fontColor=#111827;;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" target="uc-mask" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;«include»&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="inc-preview" edge="1" parent="system" source="uc-search" style="endArrow=open;endSize=10;dashed=1;html=1;rounded=0;strokeWidth=1.2;strokeColor=#111827;fontSize=10;fontColor=#111827;;exitX=0.895;exitY=0.838;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitPerimeter=0;" target="uc-preview" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;«include»&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-video" parent="system" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Выбрать кадр&lt;br&gt;из видео&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="200" x="160" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-video" edge="1" parent="system" source="uc-video" style="endArrow=open;endSize=10;dashed=1;html=1;rounded=0;strokeWidth=1.2;strokeColor=#111827;fontSize=10;fontColor=#111827;;exitX=0.92;exitY=0.838;exitDx=0;exitDy=0;entryX=0;entryY=0.35;entryDx=0;entryDy=0;exitPerimeter=0;" target="uc-search" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;«extend»&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-rate" parent="system" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Оценить аниме&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="190" x="50" y="715" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-rate" edge="1" parent="system" source="uc-rate" style="endArrow=open;endSize=10;dashed=1;html=1;rounded=0;strokeWidth=1.2;strokeColor=#111827;fontSize=10;fontColor=#111827;;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;" target="uc-details" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;«extend»&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="guest" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=13;fontStyle=1;" value="Гость" vertex="1">
+          <mxGeometry height="70" width="34" x="90" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="user" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=13;fontStyle=1;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Авторизованный&lt;br&gt;пользователь&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="34" x="78" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="trace" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=13;fontStyle=1;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;trace.moe&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="34" x="1400" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="trace-note" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#6B7280;" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;&amp;lt;&amp;lt;система&amp;gt;&amp;gt;&lt;br&gt;JSON API сцены&lt;/font&gt;" vertex="1">
+          <mxGeometry height="40" width="130" x="1358" y="312" as="geometry" />
+        </mxCell>
+        <mxCell id="anilist" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=13;fontStyle=1;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;AniList&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="34" x="1400" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="anilist-note" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;whiteSpace=wrap;fontSize=10;fontColor=#6B7280;" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;&amp;lt;&amp;lt;система&amp;gt;&amp;gt;&lt;br&gt;JSON каталог / оценка&lt;/font&gt;" vertex="1">
+          <mxGeometry height="40" width="150" x="1350" y="582" as="geometry" />
+        </mxCell>
+        <mxCell id="gen" edge="1" parent="1" source="user" style="endArrow=block;endFill=0;endSize=14;html=1;rounded=0;strokeWidth=1.5;strokeColor=#111827;;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="guest">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-catalog" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Просмотреть&lt;br&gt;каталог аниме&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="210" x="310" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-savelist" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Сохранить&lt;br&gt;в мой список&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="200" x="530" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-savescene" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Сохранить&lt;br&gt;найденную сцену&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="210" x="760" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-mylist" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Просмотреть&lt;br&gt;мой список&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="200" x="1000" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="a-login" edge="1" parent="1" source="guest" style="endArrow=none;html=1;rounded=0;strokeWidth=1.2;strokeColor=#111827;;exitX=1;exitY=0.3333333333333333;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;exitPerimeter=0;" target="uc-login">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-register" edge="1" parent="1" source="guest" style="endArrow=none;html=1;rounded=1;strokeWidth=1.2;strokeColor=#111827;;entryX=0;entryY=1;entryDx=0;entryDy=0;" target="uc-register">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a-profile" edge="1" parent="1" style="endArrow=none;html=1;rounded=1;strokeWidth=1.2;strokeColor=#111827;;entryX=0;entryY=1;entryDx=0;entryDy=0;" target="uc-profile">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="124" y="260" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a-search" edge="1" parent="1" source="guest" style="endArrow=none;html=1;rounded=0;strokeWidth=1.2;strokeColor=#111827;;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="uc-search">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-catalog" edge="1" parent="1" source="guest" style="endArrow=none;html=1;rounded=1;strokeWidth=1.2;strokeColor=#111827;;exitX=1;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" target="uc-catalog">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a-details" edge="1" parent="1" source="guest" style="endArrow=none;html=1;rounded=1;strokeWidth=1.2;strokeColor=#111827;;exitX=1;exitY=0.9;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="uc-details">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a-rate" edge="1" parent="1" source="user" style="endArrow=none;html=1;rounded=0;strokeWidth=1.2;strokeColor=#111827;;exitX=1;exitY=0.35;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="uc-rate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-savelist" edge="1" parent="1" source="user" style="endArrow=none;html=1;rounded=1;strokeWidth=1.2;strokeColor=#111827;;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" target="uc-savelist">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="230" y="760" />
+              <mxPoint x="500" y="760" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a-savescene" edge="1" parent="1" source="user" style="endArrow=none;html=1;rounded=1;strokeWidth=1.2;strokeColor=#111827;;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;" target="uc-savescene">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="220" y="800" />
+              <mxPoint x="730" y="800" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a-mylist" edge="1" parent="1" source="user" style="endArrow=none;html=1;rounded=1;strokeWidth=1.2;strokeColor=#111827;;exitX=1;exitY=0.9;exitDx=0;exitDy=0;entryX=0.185;entryY=0.938;entryDx=0;entryDy=0;entryPerimeter=0;" target="uc-mylist">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="210" y="840" />
+              <mxPoint x="840" y="830" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a-logout" edge="1" parent="1" source="user" style="endArrow=none;html=1;rounded=1;strokeWidth=1.2;strokeColor=#111827;;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="uc-logout">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="50" y="715" />
+              <mxPoint x="50" y="240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a-trace" edge="1" parent="1" source="trace" style="endArrow=none;html=1;rounded=1;strokeWidth=1.2;strokeColor=#111827;;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.2;entryDx=0;entryDy=0;" target="uc-search">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="a-anilist-det" edge="1" parent="1" source="anilist" style="endArrow=none;html=1;rounded=0;strokeWidth=1.2;strokeColor=#111827;;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="uc-details">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-anilist-cat" edge="1" parent="1" source="anilist" style="endArrow=none;html=1;rounded=1;strokeWidth=1.2;strokeColor=#111827;;exitX=0;exitY=0.8;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="uc-catalog">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ext-savelist" edge="1" parent="1" source="uc-savelist" style="endArrow=open;endSize=10;dashed=1;html=1;rounded=0;strokeWidth=1.2;strokeColor=#111827;fontSize=10;fontColor=#111827;;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="uc-details" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;«extend»&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ext-scene" edge="1" parent="1" source="uc-savescene" style="endArrow=open;endSize=10;dashed=1;html=1;rounded=0;strokeWidth=1.2;strokeColor=#111827;fontSize=10;fontColor=#111827;;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="uc-preview" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;«extend»&lt;/font&gt;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+            <mxPoint x="973.08" y="412.77" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="screens" name="Экраны">
+    <mxGraphModel dx="2020" dy="1110" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t-screens" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=20;fontStyle=1;fontColor=#111827;" value="Экраны AniShot — зоны ответственности" vertex="1">
+          <mxGeometry height="36" width="1200" x="200" y="6" as="geometry" />
+        </mxCell>
+        <mxCell id="band-d" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F0E6;strokeColor=none;opacity=100;" value="" vertex="1">
+          <mxGeometry height="430" width="1568" x="10" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="band-p" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FDECEC;strokeColor=none;" value="" vertex="1">
+          <mxGeometry height="498" width="1568" x="10" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="lab-d" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=20;fontColor=#111827;" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;domain&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="180" x="28" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="lab-p" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=20;fontColor=#111827;" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;presentation&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="240" x="28" y="1010" as="geometry" />
+        </mxCell>
+        <mxCell id="e-anime" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Anime&lt;/font&gt;" vertex="1">
+          <mxGeometry height="44" width="130" x="78" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="e-scene" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;SceneMatch&lt;/font&gt;" vertex="1">
+          <mxGeometry height="44" width="160" x="260" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="e-user" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;User&lt;/font&gt;" vertex="1">
+          <mxGeometry height="44" width="110" x="472" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="e-list" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;ListEntry&lt;/font&gt;" vertex="1">
+          <mxGeometry height="44" width="150" x="634" y="164" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-login" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Войти&lt;/font&gt;" vertex="1">
+          <mxGeometry height="74" width="175" x="20" y="286" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-register" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Зарегистрироваться&lt;/font&gt;" vertex="1">
+          <mxGeometry height="74" width="190" x="275" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-profile" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Просмотреть&lt;br&gt;профиль&lt;/font&gt;" vertex="1">
+          <mxGeometry height="74" width="170" x="80" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-logout" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Выйти&lt;/font&gt;" vertex="1">
+          <mxGeometry height="74" width="155" x="220" y="286" as="geometry" />
+        </mxCell>
+        <mxCell id="s-auth" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;align=center;verticalAlign=middle;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Вход / Профиль&lt;/font&gt;" vertex="1">
+          <mxGeometry height="270" width="250" x="100" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-search" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Найти аниме&lt;br&gt;по кадру&lt;/font&gt;" vertex="1">
+          <mxGeometry height="74" width="200" x="410" y="283" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-preview" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Показать превью&lt;br&gt;кадра и клипа&lt;/font&gt;" vertex="1">
+          <mxGeometry height="74" width="200" x="700" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-video" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Выбрать кадр&lt;br&gt;из видео&lt;/font&gt;" vertex="1">
+          <mxGeometry height="74" width="190" x="490" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-mask" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Построить маску&lt;br&gt;кадра&lt;/font&gt;" vertex="1">
+          <mxGeometry height="74" width="190" x="630" y="268" as="geometry" />
+        </mxCell>
+        <mxCell id="s-search" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;align=center;verticalAlign=middle;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Поиск по кадру&lt;/font&gt;" vertex="1">
+          <mxGeometry height="270" width="270" x="465" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-catalog" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Просмотреть&lt;br&gt;каталог аниме&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="155" x="855" y="265" as="geometry" />
+        </mxCell>
+        <mxCell id="s-catalog" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;align=center;verticalAlign=middle;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Каталог&lt;/font&gt;" vertex="1">
+          <mxGeometry height="270" width="155" x="840" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-details" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Открыть карточку&lt;br&gt;аниме&lt;/font&gt;" vertex="1">
+          <mxGeometry height="74" width="190" x="955" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-savescene" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Сохранить&lt;br&gt;найденную сцену&lt;/font&gt;" vertex="1">
+          <mxGeometry height="74" width="190" x="1300" y="286" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-rate" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Оценить аниме&lt;/font&gt;" vertex="1">
+          <mxGeometry height="74" width="175" x="1080" y="283" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-savelist" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Сохранить&lt;br&gt;в мой список&lt;/font&gt;" vertex="1">
+          <mxGeometry height="74" width="185" x="1170" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="s-details" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;align=center;verticalAlign=middle;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Карточка аниме&lt;/font&gt;" vertex="1">
+          <mxGeometry height="270" width="250" x="1070" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-mylist" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Просмотреть&lt;br&gt;мой список&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="145" x="1400" y="377" as="geometry" />
+        </mxCell>
+        <mxCell id="s-list" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#111827;strokeWidth=1.5;align=center;verticalAlign=middle;fontSize=12;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Мой список&lt;/font&gt;" vertex="1">
+          <mxGeometry height="270" width="145" x="1395" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="a-auth-profile" edge="1" parent="1" source="s-auth" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;strokeColor=#111827;;exitX=0.32;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="uc-profile">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-auth-logout" edge="1" parent="1" source="s-auth" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;strokeColor=#111827;;exitX=0.68;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="uc-logout">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-auth-login" edge="1" parent="1" source="s-auth" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;strokeColor=#111827;;exitX=0.08;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="uc-login">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-auth-reg" edge="1" parent="1" source="s-auth" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;strokeColor=#111827;;exitX=0.92;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="uc-register">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-search-video" edge="1" parent="1" source="s-search" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;strokeColor=#111827;;exitX=0.30;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="uc-video">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-search-mask" edge="1" parent="1" source="s-search" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;strokeColor=#111827;;exitX=0.70;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="uc-mask">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-search-find" edge="1" parent="1" source="s-search" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;strokeColor=#111827;;exitX=0.10;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="uc-search">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-search-prev" edge="1" parent="1" source="s-search" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;strokeColor=#111827;;exitX=0.90;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="uc-preview">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-cat" edge="1" parent="1" source="s-catalog" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;strokeColor=#111827;;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="uc-catalog">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-det-rate" edge="1" parent="1" source="s-details" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;strokeColor=#111827;;exitX=0.28;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="uc-rate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-det-savelist" edge="1" parent="1" source="s-details" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;strokeColor=#111827;;exitX=0.72;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="uc-savelist">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-det-card" edge="1" parent="1" source="s-details" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;strokeColor=#111827;;exitX=0.12;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="uc-details">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-det-scene" edge="1" parent="1" source="s-details" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;strokeColor=#111827;;exitX=0.88;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="uc-savescene">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a-list" edge="1" parent="1" source="s-list" style="endArrow=block;endFill=1;html=1;rounded=0;strokeWidth=1.3;strokeColor=#111827;;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="uc-mylist">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="layers" name="Слои экранов">
+    <mxGraphModel dx="2020" dy="1110" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2000" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="t2" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=20;fontStyle=1;fontColor=#111827;" value="Декомпозиция экранов AniShot на слои" vertex="1">
+          <mxGeometry height="32" width="1100" x="400" y="16" as="geometry" />
+        </mxCell>
+        <mxCell id="rule" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;fontSize=12;fontColor=#6B7280;" value="Dependency Rule: presentation → domain ← data. Domain ни от кого не зависит. Context, Retrofit, Room, TFLite живут только в data." vertex="1">
+          <mxGeometry height="24" width="1400" x="250" y="48" as="geometry" />
+        </mxCell>
+        <mxCell id="h-p" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;fontStyle=1;fontSize=12;" value="presentation" vertex="1">
+          <mxGeometry height="36" width="120" x="40" y="167" as="geometry" />
+        </mxCell>
+        <mxCell id="h-d" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D1FAE5;strokeColor=#059669;fontStyle=1;fontSize=12;" value="domain" vertex="1">
+          <mxGeometry height="36" width="120" x="30" y="367" as="geometry" />
+        </mxCell>
+        <mxCell id="h-a" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontStyle=1;fontSize=12;" value="data" vertex="1">
+          <mxGeometry height="36" width="120" x="30" y="562" as="geometry" />
+        </mxCell>
+        <mxCell id="c1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F9FAFB;strokeColor=#111827;strokeWidth=1.5;fontStyle=1;fontSize=12;verticalAlign=top;spacingTop=8;" value="Вход / Регистрация" vertex="1">
+          <mxGeometry height="590" width="280" x="180" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F9FAFB;strokeColor=#111827;strokeWidth=1.5;fontStyle=1;fontSize=12;verticalAlign=top;spacingTop=8;" value="Поиск по кадру" vertex="1">
+          <mxGeometry height="590" width="280" x="480" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F9FAFB;strokeColor=#111827;strokeWidth=1.5;fontStyle=1;fontSize=12;verticalAlign=top;spacingTop=8;" value="Кандидаты" vertex="1">
+          <mxGeometry height="590" width="280" x="780" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F9FAFB;strokeColor=#111827;strokeWidth=1.5;fontStyle=1;fontSize=12;verticalAlign=top;spacingTop=8;" value="Каталог" vertex="1">
+          <mxGeometry height="590" width="280" x="1080" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F9FAFB;strokeColor=#111827;strokeWidth=1.5;fontStyle=1;fontSize=12;verticalAlign=top;spacingTop=8;" value="Карточка аниме" vertex="1">
+          <mxGeometry height="590" width="260" x="1376" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F9FAFB;strokeColor=#111827;strokeWidth=1.5;fontStyle=1;fontSize=12;verticalAlign=top;spacingTop=8;" value="Мой список" vertex="1">
+          <mxGeometry height="590" width="280" x="1660" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="p1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;align=left;spacingLeft=10;fontSize=11;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;AuthActivity / Fragment&lt;br&gt;AuthViewModel&lt;br&gt;&lt;font color=&quot;#6B7280&quot;&gt;поля логина, кнопки&lt;/font&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="90" width="164" x="238" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="p2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;align=left;spacingLeft=10;fontSize=11;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;SearchFragment&lt;br&gt;SearchViewModel&lt;br&gt;&lt;font color=&quot;#6B7280&quot;&gt;камера / галерея, маска&lt;/font&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="194" x="523" y="145" as="geometry" />
+        </mxCell>
+        <mxCell id="p3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;align=left;spacingLeft=10;fontSize=11;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;MatchFragment&lt;br&gt;MatchViewModel&lt;br&gt;&lt;font color=&quot;#6B7280&quot;&gt;кадр, клип, серия, %&lt;/font&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="137" x="851.5" y="145" as="geometry" />
+        </mxCell>
+        <mxCell id="p4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;align=left;spacingLeft=10;fontSize=11;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;CatalogFragment&lt;br&gt;CatalogViewModel&lt;br&gt;&lt;font color=&quot;#6B7280&quot;&gt;RecyclerView + постеры&lt;/font&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="164" x="1138" y="145" as="geometry" />
+        </mxCell>
+        <mxCell id="p5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;align=left;spacingLeft=10;fontSize=11;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;AnimeDetailsFragment&lt;br&gt;AnimeDetailsViewModel&lt;br&gt;&lt;font color=&quot;#6B7280&quot;&gt;постер, score, кнопки&lt;/font&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="90" width="164" x="1424" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="p6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;align=left;spacingLeft=10;fontSize=11;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;MyListFragment&lt;br&gt;MyListViewModel&lt;br&gt;&lt;font color=&quot;#1D4ED8&quot;&gt;только с сессией&lt;/font&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="137" x="1731.5" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="d1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D1FAE5;strokeColor=#059669;align=left;spacingLeft=10;fontSize=11;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;UseCase&lt;/b&gt;&lt;br&gt;LoginUseCase&lt;br&gt;RegisterUseCase&lt;br&gt;&lt;b&gt;Entity&lt;/b&gt;&lt;br&gt;User&lt;br&gt;&lt;b&gt;Repository&lt;/b&gt;&lt;br&gt;AuthRepository&lt;/font&gt;" vertex="1">
+          <mxGeometry height="140" width="137" x="251.5" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="d2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D1FAE5;strokeColor=#059669;align=left;spacingLeft=10;fontSize=11;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;UseCase&lt;/b&gt;&lt;br&gt;IdentifySceneUseCase&lt;br&gt;BuildFrameMaskUseCase&lt;br&gt;&lt;b&gt;Entity&lt;/b&gt;&lt;br&gt;SceneMatch&lt;br&gt;&lt;b&gt;Repository&lt;/b&gt;&lt;br&gt;SceneRepository&lt;br&gt;MaskAnalyzer&lt;/font&gt;" vertex="1">
+          <mxGeometry height="157.5" width="184" x="528" y="301.25" as="geometry" />
+        </mxCell>
+        <mxCell id="d3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D1FAE5;strokeColor=#059669;align=left;spacingLeft=10;fontSize=11;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;UseCase&lt;/b&gt;&lt;br&gt;GetScenePreviewUseCase&lt;br&gt;SaveSceneUseCase&lt;br&gt;&lt;b&gt;Entity&lt;/b&gt;&lt;br&gt;SceneMatch&lt;br&gt;&lt;b&gt;Repository&lt;/b&gt;&lt;br&gt;SceneRepository&lt;/font&gt;" vertex="1">
+          <mxGeometry height="178.75" width="194" x="823" y="290.63" as="geometry" />
+        </mxCell>
+        <mxCell id="d4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D1FAE5;strokeColor=#059669;align=left;spacingLeft=10;fontSize=11;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;UseCase&lt;/b&gt;&lt;br&gt;GetAnimeCatalogUseCase&lt;br&gt;&lt;b&gt;Entity&lt;/b&gt;&lt;br&gt;Anime&lt;br&gt;&lt;b&gt;Repository&lt;/b&gt;&lt;br&gt;AnimeRepository&lt;/font&gt;" vertex="1">
+          <mxGeometry height="150" width="194" x="1123" y="305" as="geometry" />
+        </mxCell>
+        <mxCell id="d5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D1FAE5;strokeColor=#059669;align=left;spacingLeft=10;fontSize=11;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;UseCase&lt;/b&gt;&lt;br&gt;GetAnimeDetailsUseCase&lt;br&gt;RateAnimeUseCase&lt;br&gt;SaveToListUseCase&lt;br&gt;&lt;b&gt;Entity&lt;/b&gt;&lt;br&gt;Anime · ListEntry&lt;br&gt;&lt;b&gt;Repository&lt;/b&gt;&lt;br&gt;AnimeRepository&lt;br&gt;ListRepository&lt;/font&gt;" vertex="1">
+          <mxGeometry height="178.75" width="184" x="1414" y="290.63" as="geometry" />
+        </mxCell>
+        <mxCell id="d6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D1FAE5;strokeColor=#059669;align=left;spacingLeft=10;fontSize=11;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;UseCase&lt;/b&gt;&lt;br&gt;GetMyListUseCase&lt;br&gt;&lt;b&gt;Entity&lt;/b&gt;&lt;br&gt;ListEntry · Anime&lt;br&gt;&lt;b&gt;Repository&lt;/b&gt;&lt;br&gt;ListRepository&lt;/font&gt;" vertex="1">
+          <mxGeometry height="126.25" width="150" x="1725" y="316.88" as="geometry" />
+        </mxCell>
+        <mxCell id="a1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;align=left;spacingLeft=10;fontSize=11;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;AuthRepositoryImpl&lt;br&gt;&lt;font color=&quot;#6B7280&quot;&gt;сейчас: заглушка&lt;br&gt;потом: сессия / БД&lt;/font&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="105" width="150" x="245" y="527.5" as="geometry" />
+        </mxCell>
+        <mxCell id="a2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;align=left;spacingLeft=10;fontSize=11;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;SceneRepositoryImpl&lt;br&gt;FrameMaskAnalyzer&lt;br&gt;&lt;font color=&quot;#6B7280&quot;&gt;сейчас: тестовый match&lt;br&gt;потом: trace.moe + DeepLab&lt;/font&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="120" width="164" x="538" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="a3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;align=left;spacingLeft=10;fontSize=11;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;SceneRepositoryImpl&lt;br&gt;&lt;font color=&quot;#6B7280&quot;&gt;image/video в кэш&lt;br&gt;сохранение — Room + файлы&lt;/font&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="110" width="184" x="833" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="a4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;align=left;spacingLeft=10;fontSize=11;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;AnimeRepositoryImpl&lt;br&gt;&lt;font color=&quot;#6B7280&quot;&gt;сейчас: 3–5 тайтлов с URL&lt;br&gt;потом: AniList GraphQL&lt;/font&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="110" width="164" x="1138" y="525" as="geometry" />
+        </mxCell>
+        <mxCell id="a5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;align=left;spacingLeft=10;fontSize=11;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;AnimeRepositoryImpl&lt;br&gt;ListRepositoryImpl&lt;br&gt;&lt;font color=&quot;#6B7280&quot;&gt;score: JSON (сейчас фейк)&lt;br&gt;список: Room&lt;/font&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="120" width="164" x="1424" y="515" as="geometry" />
+        </mxCell>
+        <mxCell id="a6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;align=left;spacingLeft=10;fontSize=11;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;ListRepositoryImpl&lt;br&gt;&lt;font color=&quot;#6B7280&quot;&gt;чтение сохранённого списка из БД&lt;/font&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="90" width="204" x="1698" y="535" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,16 @@
+# материалы не для проверки (черновики, методичка, скрипты)
+other/
+
+# Android / IDE
+.idea/
+**/.idea/
+*.iml
+.gradle/
+**/.gradle/
+**/build/
+**/local.properties
+**/captures/
+**/.cxx/
+*.apk
+.DS_Store
+*.log
