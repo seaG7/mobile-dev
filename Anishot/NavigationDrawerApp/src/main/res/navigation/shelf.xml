@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/shelf"
+    app:startDestination="@id/navigation_shelf">
+
+    <fragment
+        android:id="@+id/navigation_shelf"
+        android:name="ru.mirea.danilov.navigationdrawerapp.ShelfFragment"
+        android:label="@string/nav_shelf" />
+
+    <fragment
+        android:id="@+id/navigation_marks"
+        android:name="ru.mirea.danilov.navigationdrawerapp.MarksFragment"
+        android:label="@string/nav_marks" />
+
+    <fragment
+        android:id="@+id/navigation_about"
+        android:name="ru.mirea.danilov.navigationdrawerapp.AboutFragment"
+        android:label="@string/nav_about" />
+</navigation>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_frame"
+        android:icon="@drawable/ic_frame"
+        android:title="@string/tab_frame" />
+    <item
+        android:id="@+id/navigation_timing"
+        android:icon="@drawable/ic_clock"
+        android:title="@string/tab_timing" />
+    <item
+        android:id="@+id/navigation_viewer"
+        android:icon="@drawable/ic_person"
+        android:title="@string/tab_viewer" />
+</menu>

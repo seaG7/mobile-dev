@@ -11,6 +11,7 @@
 - [Отчёт по практической работе № 4](reports/Данилов_Михаил_Алексеевич_БСБО-09-23_Практика_4.md)
 - [Отчёт по практической работе № 5](reports/Данилов_Михаил_Алексеевич_БСБО-09-23_Практика_5.md)
 - [Отчёт по практической работе № 6](reports/Данилов_Михаил_Алексеевич_БСБО-09-23_Практика_6.md)
+- [Отчёт по практической работе № 7](reports/Данилов_Михаил_Алексеевич_БСБО-09-23_Практика_7.md)
 - [Прототип экранов](reports/design/kadr-android-prototype.html)
 - [Диаграммы draw.io](reports/AniShot-use-case.drawio)
-- Проект Android Studio: [`Anishot/`](Anishot/) (`app`, `domain`, `data`, `ScrollViewApp`, `ListViewApp`, `RecyclerViewApp`, `RetrofitApp`, `FragmentApp`, `FragmentManagerApp`, `ResultApiFragmentApp`)
+- Проект Android Studio: [`Anishot/`](Anishot/) (`app`, `domain`, `data`, `ScrollViewApp`, `ListViewApp`, `RecyclerViewApp`, `RetrofitApp`, `FragmentApp`, `FragmentManagerApp`, `ResultApiFragmentApp`, `BottomNavigationApp`, `NavigationDrawerApp`)

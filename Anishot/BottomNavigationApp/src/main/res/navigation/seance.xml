@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/seance"
+    app:startDestination="@id/navigation_frame">
+
+    <fragment
+        android:id="@+id/navigation_frame"
+        android:name="ru.mirea.danilov.bottomnavigationapp.FrameFragment"
+        android:label="@string/tab_frame" />
+
+    <fragment
+        android:id="@+id/navigation_timing"
+        android:name="ru.mirea.danilov.bottomnavigationapp.TimingFragment"
+        android:label="@string/tab_timing" />
+
+    <fragment
+        android:id="@+id/navigation_viewer"
+        android:name="ru.mirea.danilov.bottomnavigationapp.ViewerFragment"
+        android:label="@string/tab_viewer" />
+</navigation>

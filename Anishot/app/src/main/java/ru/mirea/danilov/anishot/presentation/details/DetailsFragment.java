@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.google.android.material.button.MaterialButton;
 
@@ -49,7 +50,7 @@ public class DetailsFragment extends Fragment {
         MaterialButton add = view.findViewById(R.id.buttonAdd);
         Motion.press(add);
         view.findViewById(R.id.buttonBack).setOnClickListener(v ->
-                getParentFragmentManager().popBackStack());
+                Navigation.findNavController(v).popBackStack());
         openAuth.setOnClickListener(v -> startActivity(new Intent(requireContext(), AuthActivity.class)));
         add.setOnClickListener(v -> viewModel.saveCurrent());
         viewModel.anime().observe(getViewLifecycleOwner(), anime -> {

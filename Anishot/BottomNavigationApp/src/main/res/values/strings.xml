@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Сеанс</string>
+    <string name="tab_frame">Кадр</string>
+    <string name="tab_timing">Тайминг</string>
+    <string name="tab_viewer">Зритель</string>
+</resources>

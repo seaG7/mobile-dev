@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Полка</string>
+    <string name="nav_shelf">Полка</string>
+    <string name="nav_marks">Метки</string>
+    <string name="nav_about">О полке</string>
+    <string name="header_title">Полка</string>
+    <string name="header_note">Кадры, к которым хочется вернуться</string>
+</resources>

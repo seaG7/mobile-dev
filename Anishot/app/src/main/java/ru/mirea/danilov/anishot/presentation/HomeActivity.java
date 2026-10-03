@@ -8,17 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
+import androidx.navigation.fragment.NavHostFragment;
 
 import ru.mirea.danilov.anishot.R;
-import ru.mirea.danilov.anishot.presentation.catalog.CatalogFragment;
-import ru.mirea.danilov.anishot.presentation.details.DetailsFragment;
-import ru.mirea.danilov.anishot.presentation.list.MyListFragment;
-import ru.mirea.danilov.anishot.presentation.profile.ProfileFragment;
-import ru.mirea.danilov.anishot.presentation.search.SearchFragment;
 
 public class HomeActivity extends AppCompatActivity {
     private View nav;
+    private NavController navController;
     private static final int[] NAV = {
             R.id.nav_search,
             R.id.nav_catalog,
@@ -42,51 +40,39 @@ public class HomeActivity extends AppCompatActivity {
             view.setLayoutParams(params);
             return insets;
         });
-        View.OnClickListener open = view -> show(view.getId());
+        NavHostFragment host = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
+        navController = host.getNavController();
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            boolean card = destination.getId() == R.id.details;
+            this.nav.setVisibility(card ? View.GONE : View.VISIBLE);
+            for (int item : NAV) {
+                findViewById(item).setSelected(item == destination.getId());
+            }
+        });
+        View.OnClickListener open = view -> openTab(view.getId());
         for (int id : NAV) {
             findViewById(id).setOnClickListener(open);
-        }
-        getSupportFragmentManager().addOnBackStackChangedListener(this::syncDock);
-        syncDock();
-        if (savedInstanceState == null) {
-            show(R.id.nav_search);
         }
     }
 
     public void openDetails(int animeId) {
-        getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .setCustomAnimations(R.anim.rise_in, R.anim.fade_out, R.anim.rise_in, R.anim.fade_out)
-                .replace(R.id.fragmentContainer, DetailsFragment.newInstance(animeId))
-                .addToBackStack("card")
-                .commit();
+        Bundle args = new Bundle();
+        args.putInt("animeId", animeId);
+        NavOptions options = new NavOptions.Builder()
+                .setEnterAnim(R.anim.rise_in)
+                .setExitAnim(R.anim.fade_out)
+                .setPopEnterAnim(R.anim.rise_in)
+                .setPopExitAnim(R.anim.fade_out)
+                .build();
+        navController.navigate(R.id.details, args, options);
     }
 
-    private void syncDock() {
-        boolean card = getSupportFragmentManager().getBackStackEntryCount() > 0;
-        nav.setVisibility(card ? View.GONE : View.VISIBLE);
-    }
-
-    private void show(int id) {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager().popBackStackImmediate();
-        }
-        for (int item : NAV) {
-            findViewById(item).setSelected(item == id);
-        }
-        Fragment fragment;
-        if (id == R.id.nav_catalog) {
-            fragment = new CatalogFragment();
-        } else if (id == R.id.nav_list) {
-            fragment = new MyListFragment();
-        } else if (id == R.id.nav_profile) {
-            fragment = new ProfileFragment();
-        } else {
-            fragment = new SearchFragment();
-        }
-        getSupportFragmentManager().beginTransaction()
-                .setCustomAnimations(R.anim.rise_in, R.anim.fade_out)
-                .replace(R.id.fragmentContainer, fragment)
-                .commit();
+    private void openTab(int id) {
+        NavOptions options = new NavOptions.Builder()
+                .setLaunchSingleTop(true)
+                .setRestoreState(true)
+                .setPopUpTo(R.id.nav_search, false, true)
+                .build();
+        navController.navigate(id, null, options);
     }
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.NavigationDrawerApp" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">#1C1714</item>
+        <item name="colorOnPrimary">#FFFBF7</item>
+        <item name="android:statusBarColor">#1C1714</item>
+        <item name="android:navigationBarColor">#F3EEE7</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
+</resources>
