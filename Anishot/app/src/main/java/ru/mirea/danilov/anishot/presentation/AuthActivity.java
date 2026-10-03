@@ -11,12 +11,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
-import ru.mirea.danilov.anishot.AnishotApp;
 import ru.mirea.danilov.anishot.R;
-import ru.mirea.danilov.anishot.domain.LoginUseCase;
-import ru.mirea.danilov.anishot.domain.repository.AuthCallback;
+import ru.mirea.danilov.anishot.presentation.vm.AnishotFactory;
+import ru.mirea.danilov.anishot.presentation.vm.AuthViewModel;
+import ru.mirea.danilov.anishot.presentation.vm.Step;
 
 public class AuthActivity extends AppCompatActivity {
     private static final String[] KICKER = {"Кадр", "Узнавание", "Дневник"};
@@ -43,8 +44,7 @@ public class AuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
-        AnishotApp app = (AnishotApp) getApplication();
-        LoginUseCase loginUseCase = new LoginUseCase(app.authRepository());
+        AuthViewModel viewModel = new ViewModelProvider(this, AnishotFactory.from(getApplication())).get(AuthViewModel.class);
         EditText email = findViewById(R.id.editEmail);
         EditText password = findViewById(R.id.editPassword);
         TextView error = findViewById(R.id.textError);
@@ -87,31 +87,24 @@ public class AuthActivity extends AppCompatActivity {
         Motion.press(buttonNext);
         Motion.press(findViewById(R.id.buttonLogin));
         buttonNext.setOnClickListener(view -> pager.setCurrentItem(pager.getCurrentItem() + 1, true));
-        findViewById(R.id.buttonLogin).setOnClickListener(view -> {
-            error.setVisibility(View.GONE);
-            loginUseCase.execute(
-                    String.valueOf(email.getText()),
-                    String.valueOf(password.getText()),
-                    new AuthCallback() {
-                        @Override
-                        public void onSuccess() {
-                            openHome();
-                        }
-
-                        @Override
-                        public void onError(String message) {
-                            error.setVisibility(View.VISIBLE);
-                            error.setText(message);
-                        }
-                    }
-            );
+        viewModel.error().observe(this, message -> {
+            if (message == null || message.isEmpty()) {
+                error.setVisibility(View.GONE);
+                return;
+            }
+            error.setVisibility(View.VISIBLE);
+            error.setText(message);
         });
+        viewModel.navigation().observe(this, step -> {
+            if (step != null && step.take() == Step.Where.HOME) {
+                openHome();
+            }
+        });
+        findViewById(R.id.buttonLogin).setOnClickListener(view ->
+                viewModel.login(String.valueOf(email.getText()), String.valueOf(password.getText())));
         findViewById(R.id.buttonRegister).setOnClickListener(view ->
                 startActivity(new Intent(this, RegisterActivity.class)));
-        findViewById(R.id.buttonGuest).setOnClickListener(view -> {
-            app.authRepository().continueAsGuest();
-            openHome();
-        });
+        findViewById(R.id.buttonGuest).setOnClickListener(view -> viewModel.continueAsGuest());
         showPage(0);
     }
 

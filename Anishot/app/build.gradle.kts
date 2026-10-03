@@ -43,6 +43,8 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.glide)
     implementation(libs.viewpager2)
+    implementation(libs.lifecycle.viewmodel)
+    implementation(libs.lifecycle.livedata)
     testImplementation(libs.junit)
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.ext.junit)

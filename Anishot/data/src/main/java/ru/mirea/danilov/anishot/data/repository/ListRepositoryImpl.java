@@ -2,6 +2,9 @@ package ru.mirea.danilov.anishot.data.repository;
 
 import android.content.Context;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +16,15 @@ import ru.mirea.danilov.anishot.domain.repository.ListRepository;
 
 public class ListRepositoryImpl implements ListRepository {
     private final ListDao listDao;
+    private final MediatorLiveData<Long> pulse = new MediatorLiveData<>();
 
     public ListRepositoryImpl(Context context) {
         this.listDao = AppDatabase.getInstance(context).listDao();
+        pulse.addSource(listDao.observeAll(), rows -> pulse.setValue(System.currentTimeMillis()));
+    }
+
+    public LiveData<Long> pulse() {
+        return pulse;
     }
 
     @Override

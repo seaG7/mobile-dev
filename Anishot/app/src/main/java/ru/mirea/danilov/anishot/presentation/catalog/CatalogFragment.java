@@ -11,18 +11,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.mirea.danilov.anishot.AnishotApp;
 import ru.mirea.danilov.anishot.R;
-import ru.mirea.danilov.anishot.domain.GetAnimeCatalogUseCase;
 import ru.mirea.danilov.anishot.domain.models.Anime;
 import ru.mirea.danilov.anishot.presentation.ImageBinder;
 import ru.mirea.danilov.anishot.presentation.details.DetailsActivity;
+import ru.mirea.danilov.anishot.presentation.vm.AnishotFactory;
+import ru.mirea.danilov.anishot.presentation.vm.CatalogViewModel;
 
 public class CatalogFragment extends Fragment {
     @Nullable
@@ -35,15 +36,19 @@ public class CatalogFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         RecyclerView recycler = view.findViewById(R.id.recyclerCatalog);
         recycler.setLayoutManager(new GridLayoutManager(requireContext(), 2));
-        AnishotApp app = (AnishotApp) requireActivity().getApplication();
-        List<Anime> catalog = new GetAnimeCatalogUseCase(app.animeRepository()).execute();
         TextView count = view.findViewById(R.id.textCount);
-        count.setText(String.valueOf(catalog.size()));
-        recycler.setAdapter(new PosterAdapter(catalog, anime -> {
+        PosterAdapter adapter = new PosterAdapter(anime -> {
             Intent intent = new Intent(requireContext(), DetailsActivity.class);
             intent.putExtra("animeId", anime.getId());
             startActivity(intent);
-        }));
+        });
+        recycler.setAdapter(adapter);
+        CatalogViewModel viewModel = new ViewModelProvider(this, AnishotFactory.from(this)).get(CatalogViewModel.class);
+        viewModel.catalog().observe(getViewLifecycleOwner(), items -> {
+            List<Anime> safe = items == null ? new ArrayList<>() : items;
+            count.setText(String.valueOf(safe.size()));
+            adapter.setItems(safe);
+        });
     }
 
     private static class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.Holder> {
@@ -51,12 +56,19 @@ public class CatalogFragment extends Fragment {
             void onClick(Anime anime);
         }
 
-        private final List<Anime> items;
+        private final List<Anime> items = new ArrayList<>();
         private final Listener listener;
 
-        PosterAdapter(List<Anime> items, Listener listener) {
-            this.items = items == null ? new ArrayList<>() : items;
+        PosterAdapter(Listener listener) {
             this.listener = listener;
+        }
+
+        void setItems(List<Anime> next) {
+            items.clear();
+            if (next != null) {
+                items.addAll(next);
+            }
+            notifyDataSetChanged();
         }
 
         @NonNull

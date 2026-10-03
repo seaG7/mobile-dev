@@ -7,39 +7,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.button.MaterialButton;
 
-import ru.mirea.danilov.anishot.AnishotApp;
 import ru.mirea.danilov.anishot.R;
-import ru.mirea.danilov.anishot.domain.GetAnimeDetailsUseCase;
-import ru.mirea.danilov.anishot.domain.SaveToMyListUseCase;
 import ru.mirea.danilov.anishot.domain.models.Anime;
-import ru.mirea.danilov.anishot.domain.models.ListEntry;
-import ru.mirea.danilov.anishot.domain.models.User;
 import ru.mirea.danilov.anishot.presentation.AuthActivity;
 import ru.mirea.danilov.anishot.presentation.ImageBinder;
 import ru.mirea.danilov.anishot.presentation.Motion;
+import ru.mirea.danilov.anishot.presentation.vm.AnishotFactory;
+import ru.mirea.danilov.anishot.presentation.vm.DetailsViewModel;
 
 public class DetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-        AnishotApp app = (AnishotApp) getApplication();
         int id = getIntent().getIntExtra("animeId", 1);
-        Anime anime = new GetAnimeDetailsUseCase(app.animeRepository()).execute(id);
-        if (anime == null) {
-            finish();
-            return;
-        }
-        ImageBinder.load((ImageView) findViewById(R.id.imagePoster), anime.getImageUrl());
-        ((TextView) findViewById(R.id.textTitle)).setText(anime.getTitle());
-        ((TextView) findViewById(R.id.textOriginal)).setText(anime.getOriginalTitle());
-        ((TextView) findViewById(R.id.textMeta)).setText(anime.getMeta());
-        ((TextView) findViewById(R.id.textDescription)).setText(anime.getDescription());
-        ((TextView) findViewById(R.id.textScore)).setText(String.valueOf(anime.getAverageScore()));
-        findViewById(R.id.buttonBack).setOnClickListener(v -> finish());
+        DetailsViewModel viewModel = new ViewModelProvider(this, AnishotFactory.from(getApplication()))
+                .get(DetailsViewModel.class);
 
         View notice = findViewById(R.id.cardNotice);
         ImageView art = findViewById(R.id.imageNotice);
@@ -47,18 +34,28 @@ public class DetailsActivity extends AppCompatActivity {
         MaterialButton openAuth = findViewById(R.id.buttonOpenAuth);
         MaterialButton add = findViewById(R.id.buttonAdd);
         Motion.press(add);
+        findViewById(R.id.buttonBack).setOnClickListener(v -> finish());
         openAuth.setOnClickListener(v -> startActivity(new Intent(this, AuthActivity.class)));
-        add.setOnClickListener(v -> {
-            User user = app.authRepository().getProfile();
-            boolean ok = new SaveToMyListUseCase(app.listRepository(), app.authRepository())
-                    .execute(new ListEntry(anime.getId(), anime.getTitle(), "watching", 0));
+        add.setOnClickListener(v -> viewModel.saveCurrent());
+
+        viewModel.anime().observe(this, anime -> {
+            if (anime == null) {
+                finish();
+                return;
+            }
+            bind(anime);
+        });
+        viewModel.save().observe(this, save -> {
+            if (save == null) {
+                return;
+            }
             notice.setVisibility(View.VISIBLE);
             Motion.rise(notice);
-            if (user.isGuest()) {
+            if (save.guest) {
                 art.setVisibility(View.VISIBLE);
                 openAuth.setVisibility(View.VISIBLE);
                 status.setText("Войдите, чтобы сохранить тайтл в список.");
-            } else if (ok) {
+            } else if (save.saved) {
                 art.setVisibility(View.GONE);
                 openAuth.setVisibility(View.GONE);
                 status.setText("Теперь в вашем списке.");
@@ -70,5 +67,15 @@ public class DetailsActivity extends AppCompatActivity {
                 status.setText("Не удалось сохранить.");
             }
         });
+        viewModel.open(id);
+    }
+
+    private void bind(Anime anime) {
+        ImageBinder.load((ImageView) findViewById(R.id.imagePoster), anime.getImageUrl());
+        ((TextView) findViewById(R.id.textTitle)).setText(anime.getTitle());
+        ((TextView) findViewById(R.id.textOriginal)).setText(anime.getOriginalTitle());
+        ((TextView) findViewById(R.id.textMeta)).setText(anime.getMeta());
+        ((TextView) findViewById(R.id.textDescription)).setText(anime.getDescription());
+        ((TextView) findViewById(R.id.textScore)).setText(String.valueOf(anime.getAverageScore()));
     }
 }

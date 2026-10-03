@@ -10,22 +10,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import ru.mirea.danilov.anishot.AnishotApp;
 import ru.mirea.danilov.anishot.R;
-import ru.mirea.danilov.anishot.domain.GetAnimeCatalogUseCase;
-import ru.mirea.danilov.anishot.domain.GetMyListUseCase;
-import ru.mirea.danilov.anishot.domain.models.Anime;
-import ru.mirea.danilov.anishot.domain.models.ListEntry;
-import ru.mirea.danilov.anishot.domain.models.User;
 import ru.mirea.danilov.anishot.presentation.ImageBinder;
+import ru.mirea.danilov.anishot.presentation.vm.AnishotFactory;
+import ru.mirea.danilov.anishot.presentation.vm.ShelfViewModel;
 
 public class MyListFragment extends Fragment {
     @Nullable
@@ -36,41 +31,42 @@ public class MyListFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        AnishotApp app = (AnishotApp) requireActivity().getApplication();
         TextView empty = view.findViewById(R.id.textEmpty);
         View groupEmpty = view.findViewById(R.id.groupEmpty);
         ImageView imageEmpty = view.findViewById(R.id.imageEmpty);
         RecyclerView recycler = view.findViewById(R.id.recyclerList);
         recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
-        User user = app.authRepository().getProfile();
-        Map<Integer, String> posters = new HashMap<>();
-        for (Anime anime : new GetAnimeCatalogUseCase(app.animeRepository()).execute()) {
-            posters.put(anime.getId(), anime.getImageUrl());
-        }
-        List<ListEntry> items = user.isGuest()
-                ? new ArrayList<>()
-                : new GetMyListUseCase(app.listRepository(), app.authRepository()).execute();
-        if (user.isGuest() || items.isEmpty()) {
-            groupEmpty.setVisibility(View.VISIBLE);
-            recycler.setVisibility(View.GONE);
-            imageEmpty.setImageResource(user.isGuest() ? R.drawable.art_guest : R.drawable.art_onb_list);
-            empty.setText(user.isGuest()
-                    ? "Каталог открыт. Чтобы сохранять тайтлы, войдите."
-                    : "Здесь появятся тайтлы из карточки.");
-            return;
-        }
-        groupEmpty.setVisibility(View.GONE);
-        recycler.setVisibility(View.VISIBLE);
-        recycler.setAdapter(new Adapter(items, posters));
+        Adapter adapter = new Adapter();
+        recycler.setAdapter(adapter);
+        ShelfViewModel viewModel = new ViewModelProvider(this, AnishotFactory.from(this)).get(ShelfViewModel.class);
+        viewModel.state().observe(getViewLifecycleOwner(), state -> {
+            if (state == null) {
+                return;
+            }
+            if (state.guest || state.rows.isEmpty()) {
+                groupEmpty.setVisibility(View.VISIBLE);
+                recycler.setVisibility(View.GONE);
+                imageEmpty.setImageResource(state.guest ? R.drawable.art_guest : R.drawable.art_onb_list);
+                empty.setText(state.guest
+                        ? "Каталог открыт. Чтобы сохранять тайтлы, войдите."
+                        : "Здесь появятся тайтлы из карточки.");
+                return;
+            }
+            groupEmpty.setVisibility(View.GONE);
+            recycler.setVisibility(View.VISIBLE);
+            adapter.setItems(state.rows);
+        });
     }
 
     private static class Adapter extends RecyclerView.Adapter<Adapter.Holder> {
-        private final List<ListEntry> items;
-        private final Map<Integer, String> posters;
+        private final List<ShelfViewModel.Row> items = new ArrayList<>();
 
-        Adapter(List<ListEntry> items, Map<Integer, String> posters) {
-            this.items = items == null ? new ArrayList<>() : items;
-            this.posters = posters;
+        void setItems(List<ShelfViewModel.Row> next) {
+            items.clear();
+            if (next != null) {
+                items.addAll(next);
+            }
+            notifyDataSetChanged();
         }
 
         @NonNull
@@ -82,11 +78,11 @@ public class MyListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull Holder holder, int position) {
-            ListEntry entry = items.get(position);
-            holder.title.setText(entry.getTitle());
+            ShelfViewModel.Row row = items.get(position);
+            holder.title.setText(row.entry.getTitle());
             holder.meta.setText("Смотрю");
-            holder.score.setText(entry.getScore() > 0 ? String.valueOf(entry.getScore()) : "—");
-            ImageBinder.load(holder.poster, posters.get(entry.getAnimeId()));
+            holder.score.setText(row.entry.getScore() > 0 ? String.valueOf(row.entry.getScore()) : "—");
+            ImageBinder.load(holder.poster, row.poster);
         }
 
         @Override

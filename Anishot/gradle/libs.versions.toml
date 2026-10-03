@@ -13,6 +13,7 @@ firebaseBom = "33.16.0"
 googleServices = "4.4.2"
 glide = "4.16.0"
 viewpager2 = "1.1.0"
+lifecycle = "2.8.7"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -29,6 +30,8 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.r
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 viewpager2 = { group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
+lifecycle-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "lifecycle" }
+lifecycle-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata", version.ref = "lifecycle" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

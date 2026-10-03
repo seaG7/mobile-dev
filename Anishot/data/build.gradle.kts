@@ -22,5 +22,6 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     implementation(libs.room.runtime)
+    implementation(libs.lifecycle.livedata)
     annotationProcessor(libs.room.compiler)
 }

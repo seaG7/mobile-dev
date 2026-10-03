@@ -13,20 +13,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.button.MaterialButton;
 
 import java.util.Locale;
 
-import ru.mirea.danilov.anishot.AnishotApp;
 import ru.mirea.danilov.anishot.R;
-import ru.mirea.danilov.anishot.domain.BuildFrameMaskUseCase;
-import ru.mirea.danilov.anishot.domain.IdentifyAnimeByFrameUseCase;
-import ru.mirea.danilov.anishot.domain.models.FrameMask;
 import ru.mirea.danilov.anishot.domain.models.SceneMatch;
 import ru.mirea.danilov.anishot.presentation.ImageBinder;
 import ru.mirea.danilov.anishot.presentation.Motion;
 import ru.mirea.danilov.anishot.presentation.details.DetailsActivity;
+import ru.mirea.danilov.anishot.presentation.vm.AnishotFactory;
+import ru.mirea.danilov.anishot.presentation.vm.SearchViewModel;
 
 public class SearchFragment extends Fragment {
     private String source = "none";
@@ -39,7 +38,6 @@ public class SearchFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        AnishotApp app = (AnishotApp) requireActivity().getApplication();
         ImageView previewImage = view.findViewById(R.id.imagePreview);
         TextView preview = view.findViewById(R.id.textPreview);
         View cardResult = view.findViewById(R.id.cardResult);
@@ -54,6 +52,30 @@ public class SearchFragment extends Fragment {
         MaterialButton video = view.findViewById(R.id.buttonVideo);
         View find = view.findViewById(R.id.buttonFind);
         Motion.press(find);
+        SearchViewModel viewModel = new ViewModelProvider(this, AnishotFactory.from(this)).get(SearchViewModel.class);
+        viewModel.hit().observe(getViewLifecycleOwner(), hit -> {
+            if (hit == null || hit.match == null) {
+                return;
+            }
+            SceneMatch match = hit.match;
+            int percent = (int) Math.round(match.getSimilarity() * 100);
+            int seconds = (int) match.getAt();
+            String stamp = String.format(Locale.US, "%d:%02d", seconds / 60, seconds % 60);
+            showCard(cardResult);
+            resultTitle.setText(match.getTitle());
+            result.setText("Серия " + match.getEpisode() + "   ·   " + stamp);
+            similarity.setText(percent + "%");
+            similarityLabel.setVisibility(View.VISIBLE);
+            maskChip.setVisibility(View.VISIBLE);
+            maskChip.setText("маска  ·  " + (hit.mask == null ? "" : hit.mask.getLabel()));
+            open.setVisibility(View.VISIBLE);
+            ImageBinder.load(resultImage, match.getImageUrl());
+            cardResult.setOnClickListener(card -> {
+                Intent intent = new Intent(requireContext(), DetailsActivity.class);
+                intent.putExtra("animeId", match.getAnilistId());
+                startActivity(intent);
+            });
+        });
 
         View.OnClickListener pick = clicked -> {
             source = clicked.getId() == R.id.buttonPhoto ? "photo" : "video";
@@ -77,25 +99,7 @@ public class SearchFragment extends Fragment {
                 cardResult.setOnClickListener(null);
                 return;
             }
-            FrameMask mask = new BuildFrameMaskUseCase(app.frameMaskRepository()).execute();
-            SceneMatch match = new IdentifyAnimeByFrameUseCase(app.sceneRepository()).execute();
-            int percent = (int) Math.round(match.getSimilarity() * 100);
-            int seconds = (int) match.getAt();
-            String stamp = String.format(Locale.US, "%d:%02d", seconds / 60, seconds % 60);
-            showCard(cardResult);
-            resultTitle.setText(match.getTitle());
-            result.setText("Серия " + match.getEpisode() + "   ·   " + stamp);
-            similarity.setText(percent + "%");
-            similarityLabel.setVisibility(View.VISIBLE);
-            maskChip.setVisibility(View.VISIBLE);
-            maskChip.setText("маска  ·  " + mask.getLabel());
-            open.setVisibility(View.VISIBLE);
-            ImageBinder.load(resultImage, match.getImageUrl());
-            cardResult.setOnClickListener(card -> {
-                Intent intent = new Intent(requireContext(), DetailsActivity.class);
-                intent.putExtra("animeId", match.getAnilistId());
-                startActivity(intent);
-            });
+            viewModel.find();
         });
     }
 

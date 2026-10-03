@@ -2,6 +2,8 @@ package ru.mirea.danilov.anishot;
 
 import android.app.Application;
 
+import androidx.lifecycle.LiveData;
+
 import com.google.firebase.FirebaseApp;
 
 import ru.mirea.danilov.anishot.data.firebase.FirebaseAuthDataSource;
@@ -23,6 +25,7 @@ public class AnishotApp extends Application {
     private AnimeRepository animeRepository;
     private SceneRepository sceneRepository;
     private ListRepository listRepository;
+    private ListRepositoryImpl listStore;
     private FrameMaskRepository frameMaskRepository;
 
     @Override
@@ -39,7 +42,8 @@ public class AnishotApp extends Application {
         NetworkApi networkApi = new NetworkApi();
         animeRepository = new AnimeRepositoryImpl(networkApi);
         sceneRepository = new SceneRepositoryImpl(networkApi);
-        listRepository = new ListRepositoryImpl(this);
+        listStore = new ListRepositoryImpl(this);
+        listRepository = listStore;
         frameMaskRepository = new FrameMaskRepositoryImpl();
     }
 
@@ -61,5 +65,9 @@ public class AnishotApp extends Application {
 
     public FrameMaskRepository frameMaskRepository() {
         return frameMaskRepository;
+    }
+
+    public LiveData<Long> listPulse() {
+        return listStore.pulse();
     }
 }

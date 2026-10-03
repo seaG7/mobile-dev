@@ -11,14 +11,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
-import ru.mirea.danilov.anishot.AnishotApp;
 import ru.mirea.danilov.anishot.R;
-import ru.mirea.danilov.anishot.domain.GetMyListUseCase;
-import ru.mirea.danilov.anishot.domain.GetProfileUseCase;
-import ru.mirea.danilov.anishot.domain.LogoutUseCase;
 import ru.mirea.danilov.anishot.domain.models.User;
 import ru.mirea.danilov.anishot.presentation.AuthActivity;
+import ru.mirea.danilov.anishot.presentation.vm.AnishotFactory;
+import ru.mirea.danilov.anishot.presentation.vm.ProfileViewModel;
+import ru.mirea.danilov.anishot.presentation.vm.Step;
 
 public class ProfileFragment extends Fragment {
     @Nullable
@@ -29,8 +29,6 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        AnishotApp app = (AnishotApp) requireActivity().getApplication();
-        User user = new GetProfileUseCase(app.authRepository()).execute();
         TextView name = view.findViewById(R.id.textName);
         TextView mail = view.findViewById(R.id.textMail);
         TextView date = view.findViewById(R.id.textDate);
@@ -40,29 +38,43 @@ public class ProfileFragment extends Fragment {
         Button auth = view.findViewById(R.id.buttonAuth);
         Button logout = view.findViewById(R.id.buttonLogout);
 
-        String nick = nickname(user);
-        name.setText(nick);
-        letter.setText(nick.substring(0, 1).toUpperCase());
-        int saved = new GetMyListUseCase(app.listRepository(), app.authRepository()).execute().size();
-        listCount.setText(String.valueOf(saved));
+        ProfileViewModel viewModel = new ViewModelProvider(this, AnishotFactory.from(this)).get(ProfileViewModel.class);
+        viewModel.state().observe(getViewLifecycleOwner(), state -> {
+            if (state == null || state.user == null) {
+                return;
+            }
+            User user = state.user;
+            String nick = nickname(user);
+            name.setText(nick);
+            letter.setText(nick.substring(0, 1).toUpperCase());
+            listCount.setText(String.valueOf(state.saved));
+            if (user.isGuest()) {
+                mail.setText("Без аккаунта");
+                date.setText("—");
+                badge.setText("Гость");
+                logout.setVisibility(View.GONE);
+                auth.setVisibility(View.VISIBLE);
+            } else {
+                mail.setText(user.getLogin());
+                date.setText(user.getLastLoginAt());
+                badge.setText("Коллекционер");
+                auth.setVisibility(View.GONE);
+                logout.setVisibility(View.VISIBLE);
+            }
+        });
+        auth.setOnClickListener(v -> openAuth());
+        logout.setOnClickListener(v -> viewModel.logout());
+        viewModel.navigation().observe(getViewLifecycleOwner(), step -> {
+            if (step == null || step.take() != Step.Where.AUTH) {
+                return;
+            }
+            openAuth();
+            requireActivity().finish();
+        });
+    }
 
-        if (user.isGuest()) {
-            mail.setText("Без аккаунта");
-            date.setText("—");
-            badge.setText("Гость");
-            logout.setVisibility(View.GONE);
-            auth.setOnClickListener(v -> startActivity(new Intent(requireContext(), AuthActivity.class)));
-        } else {
-            mail.setText(user.getLogin());
-            date.setText(user.getLastLoginAt());
-            badge.setText("Коллекционер");
-            auth.setVisibility(View.GONE);
-            logout.setOnClickListener(v -> {
-                new LogoutUseCase(app.authRepository()).execute();
-                startActivity(new Intent(requireContext(), AuthActivity.class));
-                requireActivity().finish();
-            });
-        }
+    private void openAuth() {
+        startActivity(new Intent(requireContext(), AuthActivity.class));
     }
 
     private static String nickname(User user) {
