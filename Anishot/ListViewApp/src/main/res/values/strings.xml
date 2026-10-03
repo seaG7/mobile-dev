@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Читальня</string>
+    <string name="title">Что прочитать</string>
+    <string name="lead">Тридцать восемь книг. Автор и название в одной строке списка.</string>
+</resources>

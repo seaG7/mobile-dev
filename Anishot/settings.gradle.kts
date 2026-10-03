@@ -26,3 +26,6 @@ rootProject.name = "Anishot"
 include(":app")
 include(":domain")
 include(":data")
+include(":ScrollViewApp")
+include(":ListViewApp")
+include(":RecyclerViewApp")

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Прогрессия</string>
+    <string name="title">Степени двойки</string>
+    <string name="lead">Сто членов. Каждый следующий вдвое больше.</string>
+</resources>
