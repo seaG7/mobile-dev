@@ -37,6 +37,7 @@ public class CatalogFragment extends Fragment {
         RecyclerView recycler = view.findViewById(R.id.recyclerCatalog);
         recycler.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         TextView count = view.findViewById(R.id.textCount);
+        TextView fallback = view.findViewById(R.id.textFallback);
         PosterAdapter adapter = new PosterAdapter(anime -> {
             Intent intent = new Intent(requireContext(), DetailsActivity.class);
             intent.putExtra("animeId", anime.getId());
@@ -49,6 +50,8 @@ public class CatalogFragment extends Fragment {
             count.setText(String.valueOf(safe.size()));
             adapter.setItems(safe);
         });
+        viewModel.fallback().observe(getViewLifecycleOwner(), shown ->
+                fallback.setVisibility(Boolean.TRUE.equals(shown) ? View.VISIBLE : View.GONE));
     }
 
     private static class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.Holder> {

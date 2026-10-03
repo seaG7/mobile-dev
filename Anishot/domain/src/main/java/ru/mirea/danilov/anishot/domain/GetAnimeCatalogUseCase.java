@@ -16,4 +16,8 @@ public class GetAnimeCatalogUseCase {
     public List<Anime> execute() {
         return animeRepository.getCatalog();
     }
+
+    public boolean fellBack() {
+        return animeRepository.catalogFromStub();
+    }
 }

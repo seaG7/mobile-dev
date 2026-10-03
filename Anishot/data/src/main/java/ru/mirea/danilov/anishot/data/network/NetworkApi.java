@@ -1,8 +1,7 @@
 package ru.mirea.danilov.anishot.data.network;
 
 /**
- * Замоканный JSON-сервис каталога (практика 2: NetworkApi).
- * Позже тело ответа заменяется на HTTP.
+ * Локальный JSON каталога. Репозиторий читает его, если сеть не ответила.
  */
 public class NetworkApi {
     public String getCatalogJson() {

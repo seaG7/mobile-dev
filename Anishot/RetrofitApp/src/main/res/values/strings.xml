@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Дела</string>
+    <string name="title">Список дел</string>
+    <string name="lead">Задачи с jsonplaceholder. Кадр подбирается по номеру.</string>
+    <string name="load_failed">Список дел не загрузился</string>
+    <string name="update_failed">Не удалось обновить задачу</string>
+    <string name="still">Кадр задачи</string>
+</resources>

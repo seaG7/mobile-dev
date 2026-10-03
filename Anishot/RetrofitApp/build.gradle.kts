@@ -1,14 +1,18 @@
 plugins {
-    alias(libs.plugins.android.library)
+    alias(libs.plugins.android.application)
 }
 
 android {
-    namespace = "ru.mirea.danilov.anishot.data"
+    namespace = "ru.mirea.danilov.retrofitapp"
     compileSdk {
         version = release(37)
     }
     defaultConfig {
+        applicationId = "ru.mirea.danilov.retrofitapp"
         minSdk = 33
+        targetSdk = 37
+        versionCode = 1
+        versionName = "1.0"
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -17,13 +21,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":domain"))
     implementation(libs.appcompat)
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.auth)
-    implementation(libs.room.runtime)
-    implementation(libs.lifecycle.livedata)
+    implementation(libs.material)
+    implementation(libs.recyclerview)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-    annotationProcessor(libs.room.compiler)
+    implementation(libs.picasso)
 }

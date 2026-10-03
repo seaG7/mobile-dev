@@ -17,18 +17,26 @@ import ru.mirea.danilov.anishot.domain.models.Anime;
 public class CatalogViewModel extends ViewModel {
     private static final String TAG = "CatalogViewModel";
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final GetAnimeCatalogUseCase catalogUseCase;
     private final MutableLiveData<List<Anime>> catalog = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> fallback = new MutableLiveData<>(false);
 
     public CatalogViewModel(GetAnimeCatalogUseCase catalogUseCase) {
+        this.catalogUseCase = catalogUseCase;
         Log.d(TAG, "CatalogViewModel created");
         executor.execute(() -> {
             List<Anime> loaded = catalogUseCase.execute();
             catalog.postValue(loaded == null ? new ArrayList<>() : loaded);
+            fallback.postValue(catalogUseCase.fellBack());
         });
     }
 
     public LiveData<List<Anime>> catalog() {
         return catalog;
+    }
+
+    public LiveData<Boolean> fallback() {
+        return fallback;
     }
 
     @Override
