@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кадр — прототип</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,640&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f3eee7;
+    --surface: #fffbf7;
+    --ink: #1c1714;
+    --muted: #8a8178;
+    --accent: #ff5c38;
+    --peach: #ffe3d6;
+    --line: #e4dbd2;
+    --nav: #221e1b;
+    --canvas: #e6dfd6;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--canvas);
+    color: var(--ink);
+    font-family: Manrope, sans-serif;
+  }
+  header {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 48px 28px 8px;
+  }
+  .kicker {
+    margin: 0;
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  h1 {
+    margin: 8px 0 0;
+    font-family: Fraunces, serif;
+    font-weight: 640;
+    font-size: 56px;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+  }
+  header p.lead { color: var(--muted); max-width: 460px; line-height: 1.45; }
+  .board {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    justify-content: center;
+    padding: 28px 24px 72px;
+  }
+  .slot { width: 300px; }
+  .slot > p {
+    margin: 0 0 10px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .phone {
+    height: 640px;
+    background: var(--bg);
+    border: 8px solid #1c1714;
+    border-radius: 36px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 24px 50px rgba(28, 23, 20, 0.16);
+    display: flex;
+    flex-direction: column;
+  }
+  .art {
+    position: relative;
+    min-height: 0;
+    flex: 1;
+    overflow: hidden;
+    background: #f4c7b6;
+  }
+  .art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    animation: push 8.4s ease-in-out infinite alternate;
+  }
+  @keyframes push { from { transform: scale(1); } to { transform: scale(1.08); } }
+  .float {
+    position: absolute;
+    background: rgba(255, 251, 247, 0.94);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    animation: bob 3s ease-in-out infinite alternate;
+  }
+  .float.a { top: 28px; left: 18px; }
+  .float.b { top: 78px; right: 18px; animation-delay: .4s; }
+  @keyframes bob { from { transform: translateY(-6px); } to { transform: translateY(6px); } }
+  .sheet { padding: 8px 22px 18px; }
+  .display {
+    margin: 6px 0 0;
+    font-family: Fraunces, serif;
+    font-weight: 640;
+    font-size: 30px;
+    letter-spacing: -0.03em;
+    line-height: 0.96;
+  }
+  .muted { color: var(--muted); font-size: 14px; line-height: 1.4; margin: 8px 0 0; }
+  .dots { display: flex; gap: 6px; margin-top: 14px; align-items: center; }
+  .dots i { height: 8px; border-radius: 99px; background: var(--line); display: block; }
+  .dots i.on { width: 22px; background: var(--accent); }
+  .dots i.off { width: 8px; }
+  .btn {
+    display: block;
+    width: 100%;
+    margin-top: 14px;
+    height: 52px;
+    border: 0;
+    border-radius: 26px;
+    background: var(--accent);
+    color: white;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .btn:active { transform: scale(0.98); }
+  .textbtn {
+    display: block;
+    width: 100%;
+    margin-top: 4px;
+    height: 40px;
+    border: 0;
+    background: transparent;
+    font-family: inherit;
+    font-weight: 600;
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .field {
+    margin-top: 10px;
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 10px 14px;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .screen { padding: 16px 16px 96px; }
+  .nav {
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 12px;
+    height: 56px;
+    background: var(--nav);
+    border-radius: 28px;
+    display: flex;
+    align-items: stretch;
+  }
+  .nav span {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav svg {
+    display: block;
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: #c8bdb4;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .nav .on svg { stroke: #ff5c38; }
+  .stage {
+    height: 200px;
+    border-radius: 26px;
+    overflow: hidden;
+    position: relative;
+    background: #f4c7b6;
+    margin-top: 12px;
+  }
+  .stage img { width: 100%; height: 100%; object-fit: cover; }
+  .row { display: flex; gap: 8px; margin-top: 10px; }
+  .choice {
+    flex: 1;
+    height: 46px;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .choice.on { background: var(--ink); color: white; border-color: var(--ink); }
+  .card {
+    margin-top: 12px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .card img { width: 64px; height: 88px; object-fit: cover; border-radius: 14px; background: var(--peach); }
+  .card h3 { margin: 0; font-family: Fraunces, serif; font-size: 20px; }
+  .percent { margin-left: auto; color: var(--accent); font-family: Fraunces, serif; font-size: 26px; }
+  .chip {
+    display: inline-block;
+    background: var(--peach);
+    color: var(--accent);
+    border-radius: 99px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .poster {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+  .poster img { width: 100%; height: 78px; object-fit: cover; display: block; background: var(--peach); }
+  .poster div { padding: 8px 8px 10px; }
+  .poster strong { display: block; font-family: Fraunces, serif; font-size: 14px; }
+  .poster em { color: var(--accent); font-style: normal; font-weight: 700; font-size: 12px; }
+  .hero { height: 210px; position: relative; }
+  .hero img { width: 100%; height: 100%; object-fit: cover; }
+  .back {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #fffbf7;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+  }
+  .overlap { margin-top: -28px; background: var(--bg); border-radius: 26px 26px 0 0; padding: 16px 18px 0; position: relative; }
+  .score { color: var(--accent); font-family: Fraunces, serif; font-size: 36px; margin: 0; }
+  .notice { margin-top: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; text-align: center; }
+  .notice img { width: 100%; height: 72px; object-fit: cover; }
+  .notice p { margin: 8px 12px 12px; }
+  .avatar {
+    width: 84px; height: 84px; border-radius: 50%;
+    background: var(--peach); border: 2px solid var(--accent);
+    display: grid; place-items: center;
+    font-family: Fraunces, serif; font-size: 34px; margin: 8px auto 0;
+  }
+  .stats { display: flex; gap: 8px; margin-top: 12px; }
+  .stat { flex: 1; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 12px; }
+  .stat b { font-family: Fraunces, serif; font-size: 24px; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<header>
+  <p class="kicker">Практика 2 · прототип</p>
+  <h1>Кадр</h1>
+  <p class="lead">Поиск аниме по кадру и дневник просмотра. На первом экране «Дальше» листает онбординг до входа. На карточке «В список» показывает, что гость сохранить не может.</p>
+</header>
+<div class="board">
+  <div class="slot">
+    <p>Онбординг и вход</p>
+    <section class="phone" id="phone-onb" aria-label="Онбординг">
+      <div class="art">
+        <img id="onbArt" src="assets/art_onb_camera.jpg" alt="">
+        <span class="float a" id="onbA">фото</span>
+        <span class="float b" id="onbB">стоп-кадр</span>
+      </div>
+      <div class="sheet">
+        <p class="kicker" id="onbKicker">Кадр</p>
+        <h2 class="display" id="onbTitle">Найди аниме<br>по одному кадру</h2>
+        <p class="muted" id="onbLead">Фото или стоп-кадр. Тайтл, серия и таймкод.</p>
+        <div class="dots" id="onbDots"><i class="on"></i><i class="off"></i><i class="off"></i></div>
+        <button class="btn" id="onbNext" type="button">Дальше</button>
+        <div id="onbForm" class="hidden">
+          <div class="field">Почта</div>
+          <div class="field">Пароль</div>
+          <button class="btn" type="button">Войти</button>
+          <button class="textbtn" type="button">Создать аккаунт</button>
+          <button class="textbtn" type="button">Продолжить как гость</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="slot">
+    <p>Регистрация</p>
+    <section class="phone" id="phone-register" aria-label="Регистрация">
+      <div class="hero"><img src="assets/art_onb_list.jpg" alt=""><div class="back">‹</div></div>
+      <div class="overlap">
+        <p class="kicker">Аккаунт</p>
+        <h2 class="display">Создать<br>аккаунт</h2>
+        <p class="muted">Почта и пароль от 6 символов. Вход через Firebase Auth.</p>
+        <div class="field">Почта</div>
+        <div class="field">Пароль</div>
+        <div class="field">Повтор пароля</div>
+        <button class="btn" type="button">Зарегистрироваться</button>
+      </div>
+    </section>
+  </div>
+
+  <div class="slot">
+    <p>Поиск по кадру</p>
+    <section class="phone" id="phone-search" aria-label="Поиск">
+      <div class="screen">
+        <p class="kicker">Поиск</p>
+        <h2 class="display">Наведите<br>на сцену</h2>
+        <div class="stage"><img id="searchArt" src="assets/art_onb_camera.jpg" alt=""><span class="float a" id="searchCap">Выберите источник кадра</span></div>
+        <div class="row">
+          <button class="choice" id="pickPhoto" type="button">Фото</button>
+          <button class="choice" id="pickVideo" type="button">Кадр из видео</button>
+        </div>
+        <button class="btn" id="findBtn" type="button">Найти&nbsp;&nbsp;›››</button>
+        <div class="card hidden" id="result">
+          <img id="resultImg" src="assets/art_guest.jpg" alt="">
+          <div>
+            <h3 id="resultTitle">Кадр не выбран</h3>
+            <p class="muted" id="resultMeta" style="margin:4px 0 0">Сначала выберите фото или кадр.</p>
+            <span class="chip hidden" id="resultMask">маска · person</span>
+          </div>
+          <div class="percent" id="resultPct"></div>
+        </div>
+      </div>
+      <nav class="nav"><span class="on" aria-label="Поиск"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="M15.8 15.8 20 20"></path></svg></span><span aria-label="Каталог"><svg viewBox="0 0 24 24"><path d="M4 4h6.5v6.5H4zM13.5 4H20v6.5h-6.5zM4 13.5h6.5V20H4zM13.5 13.5H20V20h-6.5z"></path></svg></span><span aria-label="Список"><svg viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-3.8-6 3.8V5a1 1 0 0 1 1-1z"></path></svg></span><span aria-label="Профиль"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"></circle><path d="M6 19.5c.7-3.3 3-5 6-5s5.3 1.7 6 5"></path></svg></span></nav>
+    </section>
+  </div>
+
+  <div class="slot">
+    <p>Каталог</p>
+    <section class="phone" id="phone-catalog" aria-label="Каталог">
+      <div class="screen">
+        <p class="kicker">Подборка</p>
+        <h2 class="display">Каталог <span class="chip">4</span></h2>
+        <div class="grid">
+          <article class="poster"><img src="https://cdn.myanimelist.net/images/anime/1015/138006l.jpg" alt=""><div><strong>Фрирен</strong><em>88</em></div></article>
+          <article class="poster"><img src="https://cdn.myanimelist.net/images/anime/1171/109222l.jpg" alt=""><div><strong>Магическая битва</strong><em>86</em></div></article>
+          <article class="poster"><img src="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx126403-BfVSRzWUtVFW.png" alt=""><div><strong>Агенты времени</strong><em>85</em></div></article>
+          <article class="poster"><img src="https://cdn.myanimelist.net/images/anime/1806/126216l.jpg" alt=""><div><strong>Человек-бензопила</strong><em>84</em></div></article>
+        </div>
+      </div>
+      <nav class="nav"><span aria-label="Поиск"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="M15.8 15.8 20 20"></path></svg></span><span class="on" aria-label="Каталог"><svg viewBox="0 0 24 24"><path d="M4 4h6.5v6.5H4zM13.5 4H20v6.5h-6.5zM4 13.5h6.5V20H4zM13.5 13.5H20V20h-6.5z"></path></svg></span><span aria-label="Список"><svg viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-3.8-6 3.8V5a1 1 0 0 1 1-1z"></path></svg></span><span aria-label="Профиль"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"></circle><path d="M6 19.5c.7-3.3 3-5 6-5s5.3 1.7 6 5"></path></svg></span></nav>
+    </section>
+  </div>
+
+  <div class="slot">
+    <p>Карточка и гость</p>
+    <section class="phone" id="phone-details" aria-label="Карточка">
+      <div class="hero"><img src="https://cdn.myanimelist.net/images/anime/1015/138006l.jpg" alt=""><div class="back">‹</div></div>
+      <div class="overlap">
+        <p class="score">88 <span style="font-size:13px;color:var(--muted);font-family:Manrope,sans-serif">из 100</span></p>
+        <h2 class="display" style="font-size:28px">Фрирен</h2>
+        <p class="muted">葬送のフリーレン</p>
+        <span class="chip" style="color:var(--ink);margin-top:8px">2023 · MADHOUSE · 28 серий</span>
+        <p class="muted">Эльф-маг Фрирен провожает товарищей после победы над королём демонов.</p>
+        <button class="btn" id="saveBtn" type="button">В список&nbsp;&nbsp;›››</button>
+        <div class="notice hidden" id="guest">
+          <img src="assets/art_guest.jpg" alt="">
+          <p>Войдите, чтобы сохранить тайтл в список.</p>
+          <button class="btn" type="button" style="margin:0 0 12px">Войти</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="slot">
+    <p>Мой список</p>
+    <section class="phone" id="phone-list" aria-label="Мой список">
+      <div class="screen">
+        <p class="kicker">Дневник</p>
+        <h2 class="display">Мой список</h2>
+        <div class="card">
+          <img src="https://cdn.myanimelist.net/images/anime/1015/138006l.jpg" alt="">
+          <div>
+            <h3>Фрирен</h3>
+            <span class="chip">Смотрю</span>
+          </div>
+          <div class="percent" style="color:var(--ink)">—</div>
+        </div>
+      </div>
+      <nav class="nav"><span aria-label="Поиск"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="M15.8 15.8 20 20"></path></svg></span><span aria-label="Каталог"><svg viewBox="0 0 24 24"><path d="M4 4h6.5v6.5H4zM13.5 4H20v6.5h-6.5zM4 13.5h6.5V20H4zM13.5 13.5H20V20h-6.5z"></path></svg></span><span class="on" aria-label="Список"><svg viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-3.8-6 3.8V5a1 1 0 0 1 1-1z"></path></svg></span><span aria-label="Профиль"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"></circle><path d="M6 19.5c.7-3.3 3-5 6-5s5.3 1.7 6 5"></path></svg></span></nav>
+    </section>
+  </div>
+
+  <div class="slot">
+    <p>Профиль</p>
+    <section class="phone" id="phone-profile" aria-label="Профиль">
+      <div class="screen">
+        <p class="kicker">Вы</p>
+        <h2 class="display">Профиль</h2>
+        <div class="card" style="display:block;text-align:center;padding:18px">
+          <div class="avatar">М</div>
+          <h3 style="margin-top:10px">Михаил</h3>
+          <p class="muted">misha@mirea.ru</p>
+          <span class="chip">Коллекционер</span>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>1</b><div class="muted">В списке</div></div>
+          <div class="stat"><b style="font-size:16px">сегодня</b><div class="muted">Последний вход</div></div>
+        </div>
+        <button class="textbtn" type="button">Выйти</button>
+      </div>
+      <nav class="nav"><span aria-label="Поиск"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="M15.8 15.8 20 20"></path></svg></span><span aria-label="Каталог"><svg viewBox="0 0 24 24"><path d="M4 4h6.5v6.5H4zM13.5 4H20v6.5h-6.5zM4 13.5h6.5V20H4zM13.5 13.5H20V20h-6.5z"></path></svg></span><span aria-label="Список"><svg viewBox="0 0 24 24"><path d="M7 4h10a1 1 0 0 1 1 1v15l-6-3.8-6 3.8V5a1 1 0 0 1 1-1z"></path></svg></span><span class="on" aria-label="Профиль"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.2"></circle><path d="M6 19.5c.7-3.3 3-5 6-5s5.3 1.7 6 5"></path></svg></span></nav>
+    </section>
+  </div>
+</div>
+<script>
+  const pages = [
+    {
+      art: "assets/art_onb_camera.jpg",
+      a: "фото", b: "стоп-кадр",
+      kicker: "Кадр",
+      title: "Найди аниме<br>по одному кадру",
+      lead: "Фото или стоп-кадр. Тайтл, серия и таймкод."
+    },
+    {
+      art: "assets/art_onb_match.jpg",
+      a: "серия", b: "таймкод",
+      kicker: "Узнавание",
+      title: "Серия, таймкод<br>и сходство",
+      lead: "Покажем серию, минуту и насколько кадр похож."
+    },
+    {
+      art: "assets/art_onb_list.jpg",
+      a: "дневник", b: "оценка",
+      kicker: "Дневник",
+      title: "Список, как<br>дневник просмотра",
+      lead: "Гость листает каталог. В список пишет свой аккаунт."
+    }
+  ];
+  let step = 0;
+  const dots = document.querySelectorAll("#onbDots i");
+  document.getElementById("onbNext").addEventListener("click", () => {
+    step = Math.min(step + 1, pages.length - 1);
+    const page = pages[step];
+    document.getElementById("onbArt").src = page.art;
+    document.getElementById("onbA").textContent = page.a;
+    document.getElementById("onbB").textContent = page.b;
+    document.getElementById("onbKicker").textContent = page.kicker;
+    document.getElementById("onbTitle").innerHTML = page.title;
+    document.getElementById("onbLead").textContent = page.lead;
+    dots.forEach((dot, index) => {
+      dot.className = index === step ? "on" : "off";
+    });
+    if (step === pages.length - 1) {
+      document.getElementById("onbNext").classList.add("hidden");
+      document.getElementById("onbForm").classList.remove("hidden");
+    }
+  });
+
+  let source = "none";
+  function mark(id, on) {
+    document.getElementById(id).classList.toggle("on", on);
+  }
+  document.getElementById("pickPhoto").addEventListener("click", () => {
+    source = "photo";
+    mark("pickPhoto", true);
+    mark("pickVideo", false);
+    document.getElementById("searchCap").textContent = "Пробный кадр";
+    document.getElementById("searchArt").src = "https://cdn.myanimelist.net/images/anime/1015/138006l.jpg";
+  });
+  document.getElementById("pickVideo").addEventListener("click", () => {
+    source = "video";
+    mark("pickVideo", true);
+    mark("pickPhoto", false);
+    document.getElementById("searchCap").textContent = "Кадр 12:04";
+    document.getElementById("searchArt").src = "https://cdn.myanimelist.net/images/anime/1015/138006l.jpg";
+  });
+  document.getElementById("findBtn").addEventListener("click", () => {
+    const card = document.getElementById("result");
+    card.classList.remove("hidden");
+    if (source === "none") {
+      document.getElementById("resultImg").src = "assets/art_guest.jpg";
+      document.getElementById("resultTitle").textContent = "Кадр не выбран";
+      document.getElementById("resultMeta").textContent = "Сначала нажмите «Фото» или «Кадр из видео».";
+      document.getElementById("resultPct").textContent = "";
+      document.getElementById("resultMask").classList.add("hidden");
+      return;
+    }
+    document.getElementById("resultImg").src = "https://cdn.myanimelist.net/images/anime/1015/138006l.jpg";
+    document.getElementById("resultTitle").textContent = "Фрирен";
+    document.getElementById("resultMeta").textContent = "Серия 14   ·   12:04";
+    document.getElementById("resultPct").textContent = "97%";
+    document.getElementById("resultMask").classList.remove("hidden");
+    document.querySelector("#phone-search .stage").style.height = "132px";
+  });
+  document.getElementById("saveBtn").addEventListener("click", () => {
+    document.getElementById("guest").classList.remove("hidden");
+    document.querySelector("#phone-details .hero").style.height = "96px";
+    document.querySelector("#guest img").style.height = "48px";
+  });
+</script>
+</body>
+</html>

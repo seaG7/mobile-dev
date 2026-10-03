@@ -6,5 +6,7 @@
 **Группа:** БСБО-09-23
 
 - [Отчёт по практической работе № 1](reports/Данилов_Михаил_Алексеевич_БСБО-09-23_Практика_1.md)
+- [Отчёт по практической работе № 2](reports/Данилов_Михаил_Алексеевич_БСБО-09-23_Практика_2.md)
+- [Прототип экранов](reports/design/kadr-android-prototype.html)
 - [Диаграммы draw.io](reports/AniShot-use-case.drawio)
-- Проект Android Studio: [`Anishot/`](Anishot/)
+- Проект Android Studio: [`Anishot/`](Anishot/) (`app`, `domain`, `data`)

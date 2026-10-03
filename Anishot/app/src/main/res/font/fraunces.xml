@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <font
+        android:font="@font/fraunces_var"
+        android:fontStyle="normal"
+        android:fontVariationSettings="'opsz' 72, 'wght' 560"
+        android:fontWeight="560"
+        app:font="@font/fraunces_var"
+        app:fontStyle="normal"
+        app:fontVariationSettings="'opsz' 72, 'wght' 560"
+        app:fontWeight="560" />
+    <font
+        android:font="@font/fraunces_var"
+        android:fontStyle="normal"
+        android:fontVariationSettings="'opsz' 144, 'wght' 640"
+        android:fontWeight="640"
+        app:font="@font/fraunces_var"
+        app:fontStyle="normal"
+        app:fontVariationSettings="'opsz' 144, 'wght' 640"
+        app:fontWeight="640" />
+</font-family>

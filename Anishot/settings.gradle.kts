@@ -24,3 +24,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Anishot"
 include(":app")
+include(":domain")
+include(":data")
