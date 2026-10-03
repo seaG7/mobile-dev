@@ -12,11 +12,13 @@ import androidx.fragment.app.Fragment;
 
 import ru.mirea.danilov.anishot.R;
 import ru.mirea.danilov.anishot.presentation.catalog.CatalogFragment;
+import ru.mirea.danilov.anishot.presentation.details.DetailsFragment;
 import ru.mirea.danilov.anishot.presentation.list.MyListFragment;
 import ru.mirea.danilov.anishot.presentation.profile.ProfileFragment;
 import ru.mirea.danilov.anishot.presentation.search.SearchFragment;
 
 public class HomeActivity extends AppCompatActivity {
+    private View nav;
     private static final int[] NAV = {
             R.id.nav_search,
             R.id.nav_catalog,
@@ -29,6 +31,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         View nav = findViewById(R.id.bottomNav);
+        this.nav = nav;
         int baseMargin = nav.getLayoutParams() instanceof ViewGroup.MarginLayoutParams
                 ? ((ViewGroup.MarginLayoutParams) nav.getLayoutParams()).bottomMargin
                 : 0;
@@ -43,12 +46,31 @@ public class HomeActivity extends AppCompatActivity {
         for (int id : NAV) {
             findViewById(id).setOnClickListener(open);
         }
+        getSupportFragmentManager().addOnBackStackChangedListener(this::syncDock);
+        syncDock();
         if (savedInstanceState == null) {
             show(R.id.nav_search);
         }
     }
 
+    public void openDetails(int animeId) {
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .setCustomAnimations(R.anim.rise_in, R.anim.fade_out, R.anim.rise_in, R.anim.fade_out)
+                .replace(R.id.fragmentContainer, DetailsFragment.newInstance(animeId))
+                .addToBackStack("card")
+                .commit();
+    }
+
+    private void syncDock() {
+        boolean card = getSupportFragmentManager().getBackStackEntryCount() > 0;
+        nav.setVisibility(card ? View.GONE : View.VISIBLE);
+    }
+
     private void show(int id) {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStackImmediate();
+        }
         for (int item : NAV) {
             findViewById(item).setSelected(item == id);
         }

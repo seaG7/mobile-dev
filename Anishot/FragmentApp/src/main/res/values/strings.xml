@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Задачи</string>
+    <string name="title">Дела на семестр</string>
+    <string name="add">Добавить</string>
+    <string name="hint">Новая задача</string>
+</resources>

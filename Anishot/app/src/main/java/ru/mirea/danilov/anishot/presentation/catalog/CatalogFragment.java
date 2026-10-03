@@ -1,6 +1,5 @@
 package ru.mirea.danilov.anishot.presentation.catalog;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +19,8 @@ import java.util.List;
 
 import ru.mirea.danilov.anishot.R;
 import ru.mirea.danilov.anishot.domain.models.Anime;
+import ru.mirea.danilov.anishot.presentation.HomeActivity;
 import ru.mirea.danilov.anishot.presentation.ImageBinder;
-import ru.mirea.danilov.anishot.presentation.details.DetailsActivity;
 import ru.mirea.danilov.anishot.presentation.vm.AnishotFactory;
 import ru.mirea.danilov.anishot.presentation.vm.CatalogViewModel;
 
@@ -38,11 +37,8 @@ public class CatalogFragment extends Fragment {
         recycler.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         TextView count = view.findViewById(R.id.textCount);
         TextView fallback = view.findViewById(R.id.textFallback);
-        PosterAdapter adapter = new PosterAdapter(anime -> {
-            Intent intent = new Intent(requireContext(), DetailsActivity.class);
-            intent.putExtra("animeId", anime.getId());
-            startActivity(intent);
-        });
+        PosterAdapter adapter = new PosterAdapter(anime ->
+                ((HomeActivity) requireActivity()).openDetails(anime.getId()));
         recycler.setAdapter(adapter);
         CatalogViewModel viewModel = new ViewModelProvider(this, AnishotFactory.from(this)).get(CatalogViewModel.class);
         viewModel.catalog().observe(getViewLifecycleOwner(), items -> {

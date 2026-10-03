@@ -1,6 +1,5 @@
 package ru.mirea.danilov.anishot.presentation.search;
 
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,9 +20,9 @@ import java.util.Locale;
 
 import ru.mirea.danilov.anishot.R;
 import ru.mirea.danilov.anishot.domain.models.SceneMatch;
+import ru.mirea.danilov.anishot.presentation.HomeActivity;
 import ru.mirea.danilov.anishot.presentation.ImageBinder;
 import ru.mirea.danilov.anishot.presentation.Motion;
-import ru.mirea.danilov.anishot.presentation.details.DetailsActivity;
 import ru.mirea.danilov.anishot.presentation.vm.AnishotFactory;
 import ru.mirea.danilov.anishot.presentation.vm.SearchViewModel;
 
@@ -70,11 +69,8 @@ public class SearchFragment extends Fragment {
             maskChip.setText("маска  ·  " + (hit.mask == null ? "" : hit.mask.getLabel()));
             open.setVisibility(View.VISIBLE);
             ImageBinder.load(resultImage, match.getImageUrl());
-            cardResult.setOnClickListener(card -> {
-                Intent intent = new Intent(requireContext(), DetailsActivity.class);
-                intent.putExtra("animeId", match.getAnilistId());
-                startActivity(intent);
-            });
+            cardResult.setOnClickListener(card ->
+                    ((HomeActivity) requireActivity()).openDetails(match.getAnilistId()));
         });
 
         View.OnClickListener pick = clicked -> {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Подпись</string>
+    <string name="title">Подпись к кадру</string>
+    <string name="hint">Короткая подпись</string>
+    <string name="send">Открыть лист</string>
+    <string name="empty_note">Кадр без подписи</string>
+    <string name="sheet_title">Лист получил</string>
+</resources>
