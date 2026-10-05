@@ -15,3 +15,4 @@
 - [Прототип экранов](reports/design/kadr-android-prototype.html)
 - [Диаграммы draw.io](reports/AniShot-use-case.drawio)
 - Проект Android Studio: [`Anishot/`](Anishot/) (`app`, `domain`, `data`, `ScrollViewApp`, `ListViewApp`, `RecyclerViewApp`, `RetrofitApp`, `FragmentApp`, `FragmentManagerApp`, `ResultApiFragmentApp`, `BottomNavigationApp`, `NavigationDrawerApp`)
+- Учебный проект MovieProject: [`MovieProject/`](MovieProject/), пакет `ru.mirea.danilov.Lesson9`, модули `app`, `domain`, `data`
