@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.mirea.danilov.anishot.R;
+import ru.mirea.danilov.anishot.domain.models.SceneMatch;
+import ru.mirea.danilov.anishot.presentation.HomeActivity;
 import ru.mirea.danilov.anishot.presentation.ImageBinder;
 import ru.mirea.danilov.anishot.presentation.vm.AnishotFactory;
 import ru.mirea.danilov.anishot.presentation.vm.ShelfViewModel;
@@ -34,15 +36,29 @@ public class MyListFragment extends Fragment {
         TextView empty = view.findViewById(R.id.textEmpty);
         View groupEmpty = view.findViewById(R.id.groupEmpty);
         ImageView imageEmpty = view.findViewById(R.id.imageEmpty);
+        TextView savedScene = view.findViewById(R.id.textSavedScene);
         RecyclerView recycler = view.findViewById(R.id.recyclerList);
         recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
-        Adapter adapter = new Adapter();
+        Adapter adapter = new Adapter(animeId ->
+                ((HomeActivity) requireActivity()).openDetails(animeId));
         recycler.setAdapter(adapter);
         ShelfViewModel viewModel = new ViewModelProvider(this, AnishotFactory.from(this)).get(ShelfViewModel.class);
         viewModel.state().observe(getViewLifecycleOwner(), state -> {
             if (state == null) {
                 return;
             }
+            if (!state.guest && state.scenes != null && !state.scenes.isEmpty()) {
+                SceneMatch last = state.scenes.get(state.scenes.size() - 1);
+                savedScene.setVisibility(View.VISIBLE);
+                savedScene.setText("Сохранённых сцен: " + state.scenes.size()
+                        + "  ·  " + last.getTitle() + " (сер. " + last.getEpisode() + ")");
+                savedScene.setOnClickListener(v ->
+                        ((HomeActivity) requireActivity()).openDetails(last.getAnilistId()));
+            } else {
+                savedScene.setVisibility(View.GONE);
+                savedScene.setOnClickListener(null);
+            }
+
             if (state.guest || state.rows.isEmpty()) {
                 groupEmpty.setVisibility(View.VISIBLE);
                 recycler.setVisibility(View.GONE);
@@ -59,7 +75,16 @@ public class MyListFragment extends Fragment {
     }
 
     private static class Adapter extends RecyclerView.Adapter<Adapter.Holder> {
+        interface Listener {
+            void onClick(int animeId);
+        }
+
         private final List<ShelfViewModel.Row> items = new ArrayList<>();
+        private final Listener listener;
+
+        Adapter(Listener listener) {
+            this.listener = listener;
+        }
 
         void setItems(List<ShelfViewModel.Row> next) {
             items.clear();
@@ -80,9 +105,13 @@ public class MyListFragment extends Fragment {
         public void onBindViewHolder(@NonNull Holder holder, int position) {
             ShelfViewModel.Row row = items.get(position);
             holder.title.setText(row.entry.getTitle());
-            holder.meta.setText("Смотрю");
-            holder.score.setText(row.entry.getScore() > 0 ? String.valueOf(row.entry.getScore()) : "—");
+            String statusText = row.entry.getStatus() == null || row.entry.getStatus().isEmpty()
+                    ? "Смотрю"
+                    : row.entry.getStatus();
+            holder.meta.setText(statusText);
+            holder.score.setText(row.entry.getScore() > 0 ? row.entry.getScore() + "/10" : "—");
             ImageBinder.load(holder.poster, row.poster);
+            holder.itemView.setOnClickListener(v -> listener.onClick(row.entry.getAnimeId()));
         }
 
         @Override

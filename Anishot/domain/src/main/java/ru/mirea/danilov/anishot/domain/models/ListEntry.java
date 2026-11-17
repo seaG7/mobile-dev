@@ -5,12 +5,18 @@ public class ListEntry {
     private String title;
     private String status;
     private int score;
+    private String posterUrl;
 
     public ListEntry(int animeId, String title, String status, int score) {
+        this(animeId, title, status, score, "");
+    }
+
+    public ListEntry(int animeId, String title, String status, int score, String posterUrl) {
         this.animeId = animeId;
         this.title = title;
         this.status = status;
         this.score = score;
+        this.posterUrl = posterUrl == null ? "" : posterUrl;
     }
 
     public int getAnimeId() {
@@ -27,5 +33,9 @@ public class ListEntry {
 
     public int getScore() {
         return score;
+    }
+
+    public String getPosterUrl() {
+        return posterUrl;
     }
 }

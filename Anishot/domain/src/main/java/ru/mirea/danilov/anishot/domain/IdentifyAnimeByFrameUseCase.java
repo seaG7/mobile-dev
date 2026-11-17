@@ -14,4 +14,8 @@ public class IdentifyAnimeByFrameUseCase {
     public SceneMatch execute() {
         return sceneRepository.identifyByFrame();
     }
+
+    public SceneMatch execute(String imagePath) {
+        return sceneRepository.identifyByFrame(imagePath);
+    }
 }

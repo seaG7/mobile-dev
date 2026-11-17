@@ -9,5 +9,9 @@ public interface ListRepository {
 
     boolean rate(int animeId, int score);
 
+    boolean updateStatus(int animeId, String status);
+
+    boolean removeFromList(int animeId);
+
     List<ListEntry> getMyList();
 }

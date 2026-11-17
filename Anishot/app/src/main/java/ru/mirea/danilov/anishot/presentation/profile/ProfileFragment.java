@@ -21,6 +21,8 @@ import ru.mirea.danilov.anishot.presentation.vm.ProfileViewModel;
 import ru.mirea.danilov.anishot.presentation.vm.Step;
 
 public class ProfileFragment extends Fragment {
+    private ProfileViewModel viewModel;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,7 +40,7 @@ public class ProfileFragment extends Fragment {
         Button auth = view.findViewById(R.id.buttonAuth);
         Button logout = view.findViewById(R.id.buttonLogout);
 
-        ProfileViewModel viewModel = new ViewModelProvider(this, AnishotFactory.from(this)).get(ProfileViewModel.class);
+        viewModel = new ViewModelProvider(this, AnishotFactory.from(this)).get(ProfileViewModel.class);
         viewModel.state().observe(getViewLifecycleOwner(), state -> {
             if (state == null || state.user == null) {
                 return;
@@ -71,6 +73,14 @@ public class ProfileFragment extends Fragment {
             openAuth();
             requireActivity().finish();
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (viewModel != null) {
+            viewModel.refresh();
+        }
     }
 
     private void openAuth() {

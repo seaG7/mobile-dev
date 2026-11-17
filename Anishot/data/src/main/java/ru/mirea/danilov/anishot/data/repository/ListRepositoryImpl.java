@@ -19,8 +19,10 @@ public class ListRepositoryImpl implements ListRepository {
     private final MediatorLiveData<Long> pulse = new MediatorLiveData<>();
 
     public ListRepositoryImpl(Context context) {
-        this.listDao = AppDatabase.getInstance(context).listDao();
+        AppDatabase db = AppDatabase.getInstance(context);
+        this.listDao = db.listDao();
         pulse.addSource(listDao.observeAll(), rows -> pulse.setValue(System.currentTimeMillis()));
+        pulse.addSource(db.sceneDao().observeAll(), rows -> pulse.setValue(System.currentTimeMillis()));
     }
 
     public LiveData<Long> pulse() {
@@ -39,6 +41,16 @@ public class ListRepositoryImpl implements ListRepository {
     }
 
     @Override
+    public boolean updateStatus(int animeId, String status) {
+        return listDao.updateStatus(animeId, status) > 0;
+    }
+
+    @Override
+    public boolean removeFromList(int animeId) {
+        return listDao.deleteById(animeId) > 0;
+    }
+
+    @Override
     public List<ListEntry> getMyList() {
         List<ListEntry> result = new ArrayList<>();
         for (ListEntryEntity entity : listDao.getAll()) {
@@ -48,10 +60,11 @@ public class ListRepositoryImpl implements ListRepository {
     }
 
     private ListEntryEntity mapToStorage(ListEntry entry) {
-        return new ListEntryEntity(entry.getAnimeId(), entry.getTitle(), entry.getStatus(), entry.getScore());
+        String poster = entry.getPosterUrl() == null ? "" : entry.getPosterUrl();
+        return new ListEntryEntity(entry.getAnimeId(), entry.getTitle(), entry.getStatus(), entry.getScore(), poster);
     }
 
     private ListEntry mapToDomain(ListEntryEntity entity) {
-        return new ListEntry(entity.animeId, entity.title, entity.status, entity.score);
+        return new ListEntry(entity.animeId, entity.title, entity.status, entity.score, entity.posterUrl);
     }
 }

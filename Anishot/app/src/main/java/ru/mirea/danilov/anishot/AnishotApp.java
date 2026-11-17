@@ -41,10 +41,10 @@ public class AnishotApp extends Application {
         );
         NetworkApi networkApi = new NetworkApi();
         animeRepository = new AnimeRepositoryImpl(networkApi);
-        sceneRepository = new SceneRepositoryImpl(networkApi);
+        sceneRepository = new SceneRepositoryImpl(this, networkApi);
         listStore = new ListRepositoryImpl(this);
         listRepository = listStore;
-        frameMaskRepository = new FrameMaskRepositoryImpl();
+        frameMaskRepository = new FrameMaskRepositoryImpl(this);
     }
 
     public AuthRepository authRepository() {

@@ -25,5 +25,6 @@ dependencies {
     implementation(libs.lifecycle.livedata)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.tensorflow.lite)
     annotationProcessor(libs.room.compiler)
 }

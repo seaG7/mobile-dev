@@ -4,4 +4,6 @@ import ru.mirea.danilov.anishot.domain.models.FrameMask;
 
 public interface FrameMaskRepository {
     FrameMask buildMask();
+
+    FrameMask buildMask(String imagePath);
 }

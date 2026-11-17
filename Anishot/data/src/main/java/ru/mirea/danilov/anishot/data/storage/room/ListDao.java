@@ -21,4 +21,10 @@ public interface ListDao {
 
     @Query("UPDATE list_entries SET score = :score WHERE animeId = :animeId")
     int updateScore(int animeId, int score);
+
+    @Query("UPDATE list_entries SET status = :status WHERE animeId = :animeId")
+    int updateStatus(int animeId, String status);
+
+    @Query("DELETE FROM list_entries WHERE animeId = :animeId")
+    int deleteById(int animeId);
 }

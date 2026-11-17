@@ -13,11 +13,18 @@ import ru.mirea.danilov.anishot.domain.GetAnimeCatalogUseCase;
 import ru.mirea.danilov.anishot.domain.GetAnimeDetailsUseCase;
 import ru.mirea.danilov.anishot.domain.GetMyListUseCase;
 import ru.mirea.danilov.anishot.domain.GetProfileUseCase;
+import ru.mirea.danilov.anishot.domain.GetSavedScenesUseCase;
+import ru.mirea.danilov.anishot.domain.GetScenePreviewUseCase;
 import ru.mirea.danilov.anishot.domain.IdentifyAnimeByFrameUseCase;
 import ru.mirea.danilov.anishot.domain.LoginUseCase;
 import ru.mirea.danilov.anishot.domain.LogoutUseCase;
+import ru.mirea.danilov.anishot.domain.RateAnimeUseCase;
 import ru.mirea.danilov.anishot.domain.RegisterUseCase;
+import ru.mirea.danilov.anishot.domain.RemoveFromMyListUseCase;
+import ru.mirea.danilov.anishot.domain.SaveFoundSceneUseCase;
 import ru.mirea.danilov.anishot.domain.SaveToMyListUseCase;
+import ru.mirea.danilov.anishot.domain.SelectFrameFromVideoUseCase;
+import ru.mirea.danilov.anishot.domain.UpdateListStatusUseCase;
 
 public class AnishotFactory implements ViewModelProvider.Factory {
     private final AnishotApp app;
@@ -55,6 +62,7 @@ public class AnishotFactory implements ViewModelProvider.Factory {
             return (T) new ShelfViewModel(
                     new GetAnimeCatalogUseCase(app.animeRepository()),
                     new GetMyListUseCase(app.listRepository(), app.authRepository()),
+                    new GetSavedScenesUseCase(app.sceneRepository(), app.authRepository()),
                     app.authRepository(),
                     app.listPulse()
             );
@@ -62,13 +70,21 @@ public class AnishotFactory implements ViewModelProvider.Factory {
         if (modelClass == SearchViewModel.class) {
             return (T) new SearchViewModel(
                     new IdentifyAnimeByFrameUseCase(app.sceneRepository()),
-                    new BuildFrameMaskUseCase(app.frameMaskRepository())
+                    new BuildFrameMaskUseCase(app.frameMaskRepository()),
+                    new SelectFrameFromVideoUseCase(app.sceneRepository()),
+                    new GetScenePreviewUseCase(app.sceneRepository()),
+                    new SaveFoundSceneUseCase(app.sceneRepository(), app.authRepository()),
+                    app.authRepository()
             );
         }
         if (modelClass == DetailsViewModel.class) {
             return (T) new DetailsViewModel(
                     new GetAnimeDetailsUseCase(app.animeRepository()),
                     new SaveToMyListUseCase(app.listRepository(), app.authRepository()),
+                    new GetMyListUseCase(app.listRepository(), app.authRepository()),
+                    new RateAnimeUseCase(app.listRepository(), app.authRepository()),
+                    new UpdateListStatusUseCase(app.listRepository(), app.authRepository()),
+                    new RemoveFromMyListUseCase(app.listRepository(), app.authRepository()),
                     app.authRepository()
             );
         }

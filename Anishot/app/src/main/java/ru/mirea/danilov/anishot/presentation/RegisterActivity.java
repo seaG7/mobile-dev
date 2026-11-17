@@ -2,10 +2,15 @@ package ru.mirea.danilov.anishot.presentation;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import ru.mirea.danilov.anishot.R;
@@ -36,7 +41,9 @@ public class RegisterActivity extends AppCompatActivity {
         });
         viewModel.navigation().observe(this, step -> {
             if (step != null && step.take() == Step.Where.HOME) {
-                startActivity(new Intent(this, HomeActivity.class));
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 finish();
             }
         });
@@ -45,6 +52,15 @@ public class RegisterActivity extends AppCompatActivity {
                 String.valueOf(password.getText()),
                 String.valueOf(repeat.getText())
         ));
-        findViewById(R.id.buttonBack).setOnClickListener(view -> finish());
+        View back = findViewById(R.id.buttonBack);
+        int baseTop = ((ViewGroup.MarginLayoutParams) back.getLayoutParams()).topMargin;
+        ViewCompat.setOnApplyWindowInsetsListener(back, (v, insets) -> {
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            params.topMargin = baseTop + bars.top;
+            v.setLayoutParams(params);
+            return insets;
+        });
+        back.setOnClickListener(view -> finish());
     }
 }

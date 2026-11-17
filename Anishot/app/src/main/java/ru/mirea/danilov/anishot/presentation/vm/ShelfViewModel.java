@@ -16,8 +16,10 @@ import java.util.concurrent.Executors;
 
 import ru.mirea.danilov.anishot.domain.GetAnimeCatalogUseCase;
 import ru.mirea.danilov.anishot.domain.GetMyListUseCase;
+import ru.mirea.danilov.anishot.domain.GetSavedScenesUseCase;
 import ru.mirea.danilov.anishot.domain.models.Anime;
 import ru.mirea.danilov.anishot.domain.models.ListEntry;
+import ru.mirea.danilov.anishot.domain.models.SceneMatch;
 import ru.mirea.danilov.anishot.domain.repository.AuthRepository;
 
 public class ShelfViewModel extends ViewModel {
@@ -36,15 +38,18 @@ public class ShelfViewModel extends ViewModel {
     public static final class State {
         public final boolean guest;
         public final List<Row> rows;
+        public final List<SceneMatch> scenes;
 
-        State(boolean guest, List<Row> rows) {
+        State(boolean guest, List<Row> rows, List<SceneMatch> scenes) {
             this.guest = guest;
             this.rows = rows;
+            this.scenes = scenes;
         }
     }
 
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final GetMyListUseCase listUseCase;
+    private final GetSavedScenesUseCase scenesUseCase;
     private final AuthRepository authRepository;
     private final MutableLiveData<List<Anime>> catalog = new MutableLiveData<>();
     private final MediatorLiveData<State> state = new MediatorLiveData<>();
@@ -52,9 +57,11 @@ public class ShelfViewModel extends ViewModel {
 
     public ShelfViewModel(GetAnimeCatalogUseCase catalogUseCase,
                           GetMyListUseCase listUseCase,
+                          GetSavedScenesUseCase scenesUseCase,
                           AuthRepository authRepository,
                           LiveData<Long> roomPulse) {
         this.listUseCase = listUseCase;
+        this.scenesUseCase = scenesUseCase;
         this.authRepository = authRepository;
         Log.d(TAG, "ShelfViewModel created");
         state.addSource(catalog, items -> {
@@ -75,15 +82,20 @@ public class ShelfViewModel extends ViewModel {
     private void publish() {
         boolean guest = authRepository.getProfile().isGuest();
         List<ListEntry> entries = listUseCase.execute();
+        List<SceneMatch> scenes = scenesUseCase.execute();
         Map<Integer, String> posters = new HashMap<>();
         for (Anime anime : latestCatalog) {
             posters.put(anime.getId(), anime.getImageUrl());
         }
         List<Row> rows = new ArrayList<>();
         for (ListEntry entry : entries) {
-            rows.add(new Row(entry, posters.get(entry.getAnimeId())));
+            String poster = posters.get(entry.getAnimeId());
+            if ((poster == null || poster.isEmpty()) && !entry.getPosterUrl().isEmpty()) {
+                poster = entry.getPosterUrl();
+            }
+            rows.add(new Row(entry, poster));
         }
-        state.setValue(new State(guest, rows));
+        state.setValue(new State(guest, rows, scenes));
     }
 
     @Override

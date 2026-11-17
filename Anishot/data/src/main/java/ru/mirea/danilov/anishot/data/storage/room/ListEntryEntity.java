@@ -11,13 +11,16 @@ public class ListEntryEntity {
     @NonNull
     public String title = "";
     @NonNull
-    public String status = "watching";
+    public String status = "Смотрю";
     public int score;
+    @NonNull
+    public String posterUrl = "";
 
-    public ListEntryEntity(int animeId, @NonNull String title, @NonNull String status, int score) {
+    public ListEntryEntity(int animeId, @NonNull String title, @NonNull String status, int score, @NonNull String posterUrl) {
         this.animeId = animeId;
         this.title = title;
         this.status = status;
         this.score = score;
+        this.posterUrl = posterUrl;
     }
 }

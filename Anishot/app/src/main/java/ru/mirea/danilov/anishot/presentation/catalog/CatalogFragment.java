@@ -25,6 +25,8 @@ import ru.mirea.danilov.anishot.presentation.vm.AnishotFactory;
 import ru.mirea.danilov.anishot.presentation.vm.CatalogViewModel;
 
 public class CatalogFragment extends Fragment {
+    private CatalogViewModel viewModel;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class CatalogFragment extends Fragment {
         PosterAdapter adapter = new PosterAdapter(anime ->
                 ((HomeActivity) requireActivity()).openDetails(anime.getId()));
         recycler.setAdapter(adapter);
-        CatalogViewModel viewModel = new ViewModelProvider(this, AnishotFactory.from(this)).get(CatalogViewModel.class);
+        viewModel = new ViewModelProvider(this, AnishotFactory.from(this)).get(CatalogViewModel.class);
         viewModel.catalog().observe(getViewLifecycleOwner(), items -> {
             List<Anime> safe = items == null ? new ArrayList<>() : items;
             count.setText(String.valueOf(safe.size()));
@@ -48,6 +50,14 @@ public class CatalogFragment extends Fragment {
         });
         viewModel.fallback().observe(getViewLifecycleOwner(), shown ->
                 fallback.setVisibility(Boolean.TRUE.equals(shown) ? View.VISIBLE : View.GONE));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (viewModel != null) {
+            viewModel.retryIfFallback();
+        }
     }
 
     private static class PosterAdapter extends RecyclerView.Adapter<PosterAdapter.Holder> {

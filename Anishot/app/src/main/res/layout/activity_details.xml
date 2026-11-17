@@ -116,6 +116,140 @@
                 android:text="В список    ›››" />
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardManage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="@color/surface"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/line"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        style="@style/Text.Anishot.Kicker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Статус и оценка" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/statusWatching"
+                            style="@style/Widget.Anishot.Choice"
+                            android:layout_width="0dp"
+                            android:layout_height="44dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="0.9"
+                            android:maxLines="1"
+                            android:minHeight="44dp"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"
+                            android:text="Смотрю"
+                            android:textSize="12sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/statusDone"
+                            style="@style/Widget.Anishot.Choice"
+                            android:layout_width="0dp"
+                            android:layout_height="44dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp"
+                            android:layout_weight="1.25"
+                            android:maxLines="1"
+                            android:minHeight="44dp"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"
+                            android:text="Просмотрено"
+                            android:textSize="12sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/statusPlan"
+                            style="@style/Widget.Anishot.Choice"
+                            android:layout_width="0dp"
+                            android:layout_height="44dp"
+                            android:layout_marginStart="4dp"
+                            android:layout_weight="0.95"
+                            android:maxLines="1"
+                            android:minHeight="44dp"
+                            android:paddingStart="6dp"
+                            android:paddingEnd="6dp"
+                            android:text="В планах"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/buttonScoreMinus"
+                            style="@style/Widget.Anishot.Choice"
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:minHeight="44dp"
+                            android:padding="0dp"
+                            android:text="-" />
+
+                        <TextView
+                            android:id="@+id/textMyScore"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="Оценка: 8/10"
+                            android:textColor="@color/ink"
+                            android:textFontWeight="700"
+                            android:textSize="15sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/buttonScorePlus"
+                            style="@style/Widget.Anishot.Choice"
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:minHeight="44dp"
+                            android:padding="0dp"
+                            android:text="+" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/buttonRate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="44dp"
+                            android:layout_marginStart="8dp"
+                            android:minHeight="44dp"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Оценить"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/buttonRemove"
+                        style="@style/Widget.Anishot.TextButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:layout_marginTop="6dp"
+                        android:text="Удалить из списка"
+                        android:textColor="@color/danger"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardNotice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

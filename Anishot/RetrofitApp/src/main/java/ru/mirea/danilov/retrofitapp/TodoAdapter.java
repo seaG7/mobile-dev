@@ -73,6 +73,7 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.Holder> {
     }
 
     private void bindCheck(Holder holder, Todo todo) {
+        holder.done.setTag(todo);
         holder.done.setOnCheckedChangeListener(null);
         holder.done.setChecked(todo.isCompleted());
         holder.done.setOnCheckedChangeListener((button, checked) -> {
@@ -86,16 +87,20 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.Holder> {
                 public void onResponse(@NonNull Call<Todo> call, @NonNull Response<Todo> response) {
                     if (!response.isSuccessful()) {
                         todo.setCompleted(previous);
-                        bindCheck(holder, todo);
-                        Toast.makeText(holder.itemView.getContext(), R.string.update_failed, Toast.LENGTH_SHORT).show();
+                        if (holder.done.getTag() == todo) {
+                            bindCheck(holder, todo);
+                        }
+                        Toast.makeText(holder.itemView.getContext().getApplicationContext(), R.string.update_failed, Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(@NonNull Call<Todo> call, @NonNull Throwable t) {
                     todo.setCompleted(previous);
-                    bindCheck(holder, todo);
-                    Toast.makeText(holder.itemView.getContext(), R.string.update_failed, Toast.LENGTH_SHORT).show();
+                    if (holder.done.getTag() == todo) {
+                        bindCheck(holder, todo);
+                    }
+                    Toast.makeText(holder.itemView.getContext().getApplicationContext(), R.string.update_failed, Toast.LENGTH_SHORT).show();
                 }
             });
         });

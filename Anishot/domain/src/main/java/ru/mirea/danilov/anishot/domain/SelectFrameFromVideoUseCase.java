@@ -14,4 +14,8 @@ public class SelectFrameFromVideoUseCase {
     public Frame execute() {
         return sceneRepository.selectFrameFromVideo();
     }
+
+    public Frame execute(String videoUri) {
+        return sceneRepository.selectFrameFromVideo(videoUri);
+    }
 }

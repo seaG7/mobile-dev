@@ -16,7 +16,9 @@ import ru.mirea.danilov.anishot.R;
 
 public class HomeActivity extends AppCompatActivity {
     private View nav;
+    private View hostView;
     private NavController navController;
+    private int statusTop;
     private static final int[] NAV = {
             R.id.nav_search,
             R.id.nav_catalog,
@@ -28,6 +30,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        hostView = findViewById(R.id.nav_host);
         View nav = findViewById(R.id.bottomNav);
         this.nav = nav;
         int baseMargin = nav.getLayoutParams() instanceof ViewGroup.MarginLayoutParams
@@ -38,6 +41,8 @@ public class HomeActivity extends AppCompatActivity {
             ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
             params.bottomMargin = baseMargin + bars.bottom;
             view.setLayoutParams(params);
+            statusTop = bars.top;
+            applyHostTopInset();
             return insets;
         });
         NavHostFragment host = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
@@ -45,6 +50,7 @@ public class HomeActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             boolean card = destination.getId() == R.id.details;
             this.nav.setVisibility(card ? View.GONE : View.VISIBLE);
+            applyHostTopInset();
             for (int item : NAV) {
                 findViewById(item).setSelected(item == destination.getId());
             }
@@ -53,6 +59,15 @@ public class HomeActivity extends AppCompatActivity {
         for (int id : NAV) {
             findViewById(id).setOnClickListener(open);
         }
+    }
+
+    private void applyHostTopInset() {
+        if (hostView == null || navController == null) {
+            return;
+        }
+        boolean card = navController.getCurrentDestination() != null
+                && navController.getCurrentDestination().getId() == R.id.details;
+        hostView.setPadding(0, card ? 0 : statusTop, 0, 0);
     }
 
     public void openDetails(int animeId) {

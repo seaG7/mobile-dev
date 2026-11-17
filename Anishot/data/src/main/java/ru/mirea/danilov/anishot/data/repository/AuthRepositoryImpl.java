@@ -69,6 +69,7 @@ public class AuthRepositoryImpl implements AuthRepository {
 
     @Override
     public void continueAsGuest() {
+        firebaseAuthDataSource.signOut();
         clientStorage.save(new ClientRecord(0, "guest", true, String.valueOf(LocalDate.now())));
     }
 

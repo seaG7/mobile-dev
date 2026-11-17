@@ -24,11 +24,21 @@ public class CatalogViewModel extends ViewModel {
     public CatalogViewModel(GetAnimeCatalogUseCase catalogUseCase) {
         this.catalogUseCase = catalogUseCase;
         Log.d(TAG, "CatalogViewModel created");
+        load();
+    }
+
+    public void load() {
         executor.execute(() -> {
             List<Anime> loaded = catalogUseCase.execute();
             catalog.postValue(loaded == null ? new ArrayList<>() : loaded);
             fallback.postValue(catalogUseCase.fellBack());
         });
+    }
+
+    public void retryIfFallback() {
+        if (Boolean.TRUE.equals(fallback.getValue())) {
+            load();
+        }
     }
 
     public LiveData<List<Anime>> catalog() {

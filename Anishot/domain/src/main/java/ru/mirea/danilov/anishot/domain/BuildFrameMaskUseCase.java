@@ -14,4 +14,8 @@ public class BuildFrameMaskUseCase {
     public FrameMask execute() {
         return frameMaskRepository.buildMask();
     }
+
+    public FrameMask execute(String imagePath) {
+        return frameMaskRepository.buildMask(imagePath);
+    }
 }

@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskFragment extends Fragment {
+    private static final String STATE_TITLES = "state_titles";
+    private static final String STATE_DONE = "state_done";
+
     private final List<String> titles = new ArrayList<>();
     private final List<Boolean> done = new ArrayList<>();
     private TaskAdapter adapter;
@@ -33,6 +36,15 @@ public class TaskFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         int number = requireArguments().getInt("my_number_student");
         ((TextView) view.findViewById(R.id.textNumber)).setText("Номер по списку: " + number);
+        if (titles.isEmpty() && savedInstanceState != null) {
+            ArrayList<String> savedTitles = savedInstanceState.getStringArrayList(STATE_TITLES);
+            boolean[] savedDone = savedInstanceState.getBooleanArray(STATE_DONE);
+            if (savedTitles != null && savedDone != null && savedTitles.size() == savedDone.length) {
+                for (int i = 0; i < savedTitles.size(); i++) {
+                    add(savedTitles.get(i), savedDone[i]);
+                }
+            }
+        }
         if (titles.isEmpty()) {
             add("Досмотреть 14 серию «Фрирен»", true);
             add("Выписать таймкод кадра", false);
@@ -55,6 +67,17 @@ public class TaskFragment extends Fragment {
             edit.setText("");
             adapter.notifyItemInserted(titles.size() - 1);
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putStringArrayList(STATE_TITLES, new ArrayList<>(titles));
+        boolean[] flags = new boolean[done.size()];
+        for (int i = 0; i < done.size(); i++) {
+            flags[i] = Boolean.TRUE.equals(done.get(i));
+        }
+        outState.putBooleanArray(STATE_DONE, flags);
     }
 
     private void add(String title, boolean finished) {

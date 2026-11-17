@@ -12,12 +12,16 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class NoteSheet extends BottomSheetDialogFragment {
+    private static final String STATE_RECEIVED = "state_received";
     private String received = "";
     private TextView note;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            received = savedInstanceState.getString(STATE_RECEIVED, "");
+        }
         getParentFragmentManager().setFragmentResultListener(NoteFragment.REQUEST, this, (key, bundle) -> {
             received = bundle.getString("key", "");
             if (note != null) {
@@ -36,5 +40,11 @@ public class NoteSheet extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         note = view.findViewById(R.id.textNote);
         note.setText(received);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(STATE_RECEIVED, received);
     }
 }
