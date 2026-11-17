@@ -26,4 +26,13 @@ rootProject.name = "MovieProject"
 include(":app")
 include(":domain")
 include(":data")
+include(":ScrollViewApp")
+include(":ListViewApp")
+include(":RecyclerViewApp")
+include(":RetrofitApp")
+include(":FragmentApp")
+include(":FragmentManagerApp")
+include(":ResultApiFragmentApp")
+include(":BottomNavigationApp")
+include(":NavigationDrawerApp")
  
